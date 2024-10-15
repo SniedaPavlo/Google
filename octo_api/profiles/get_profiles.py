@@ -16,6 +16,7 @@ def get_profiles(**kwargs):
         'fields': 'title,description,proxy,start_pages,tags,status,last_active,version,storage_options,created_at,updated_at',
         'ordering': 'active'
     }
+    
     params.update(kwargs)
     
     try:

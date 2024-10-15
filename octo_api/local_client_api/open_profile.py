@@ -22,6 +22,8 @@ def open_profile_by_id(uuid, flags=None, password=None):
         data["password"] = password
 
     res = requests.post(url=url, json=data)
+    #get post
     port = res.json()['debug_port']
+    #return driver with debugger_address
     driver = connect(port)['driver']
     return driver

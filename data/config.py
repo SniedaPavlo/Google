@@ -6,3 +6,5 @@ LOGIN = {
     "USERNAME": "beastiieysefolo@gmail.com",
     "PASSWORD": "Default4444"
 }
+
+DONT_CLOSE_WINDOW_URL = 'pixelscan'
