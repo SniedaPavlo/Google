@@ -67,74 +67,73 @@
   //
 
   try {
-    // Определяем XPath для поиска input элемента
-    const inputXpath = "//*[@id='query_div']/input";
-    // Определяем XPath для кнопки создания оповещения
-    const alertButtonXpath = "//*[@id='create_alert']";
+    // Получаем элемент с помощью XPath
+    const inputElement = document.evaluate(
+      '//*[@id="query_div"]/input',
+      document,
+      null,
+      XPathResult.FIRST_ORDERED_NODE_TYPE,
+      null
+    ).singleNodeValue;
 
-    // Функция для получения элемента по XPath
-    function getElementByXPath(xpathExpression) {
-      const result = document.evaluate(
-        xpathExpression,
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null
-      );
-      return result.singleNodeValue;
-    }
-
-    // Функция для имитации ввода текста с естественными задержками между буквами
-    function typeText(element, text, callback) {
-      let i = 0;
-      const typeNextLetter = () => {
-        element.value += text[i];
-        i++;
-        if (i < text.length) {
-          // Случайная задержка от 100 до 200 мс между буквами
-          const delay = Math.random() * 100 + 100;
-          setTimeout(typeNextLetter, delay);
-        } else {
-          callback(); // Завершение ввода, вызываем callback
-        }
-      };
-      typeNextLetter();
-    }
-
-    // Функция для имитации нажатия клавиши Enter
-    function pressEnter(element) {
-      const event = new KeyboardEvent("keydown", {
-        key: "Enter",
-        code: "Enter",
-        keyCode: 13,
-        which: 13,
+    // Функция для имитации клика на элементе
+    function simulateClick(element) {
+      const mouseEvent = new MouseEvent("click", {
         bubbles: true,
+        cancelable: true,
+        view: window,
       });
-      element.dispatchEvent(event);
-      console.log("Нажата клавиша Enter");
+      element.dispatchEvent(mouseEvent);
     }
 
-    // Получаем input элемент
-    const inputElement = getElementByXPath(inputXpath);
-    const alertButton = getElementByXPath(alertButtonXpath);
-
-    if (inputElement && alertButton) {
-      console.log("Найден input элемент");
-
-      // Имитация ввода текста "sport" с случайными задержками между буквами
-      typeText(inputElement, "sport", () => {
-        console.log('Текст "sport" введен');
-
-        // Нажимаем Enter после ввода текста
-        pressEnter(inputElement);
-
-        // Кликаем по кнопке создания оповещения
-        alertButton.click();
-        console.log("Нажата кнопка создания оповещения");
+    // Функция для имитации нажатия клавиш Ctrl + C
+    function simulateCtrlC() {
+      const ctrlCEvent = new KeyboardEvent("keydown", {
+        key: "c",
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true,
       });
-    } else {
-      console.log("Не найден input элемент или кнопка создания оповещения");
+      document.dispatchEvent(ctrlCEvent);
     }
+
+    // Функция для имитации набора текста с задержкой
+    async function simulateTyping(element, text, delay) {
+      // Устанавливаем фокус на элементе
+      element.focus();
+
+      for (const char of text) {
+        // Создаем событие 'keydown' для каждого символа
+        const keydownEvent = new KeyboardEvent("keydown", {
+          key: char,
+          bubbles: true,
+          cancelable: true,
+        });
+
+        // Отправляем событие 'keydown'
+        element.dispatchEvent(keydownEvent);
+
+        // Обновляем значение элемента
+        element.value += char;
+        element.dispatchEvent(new Event("input", { bubbles: true }));
+
+        // Ожидаем перед отправкой следующего символа
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+
+      // Отправляем 'keyup' для последнего символа
+      const keyupEvent = new KeyboardEvent("keyup", {
+        key: text[text.length - 1],
+        bubbles: true,
+        cancelable: true,
+      });
+      element.dispatchEvent(keyupEvent);
+    }
+
+    // Выполняем последовательность действий
+    simulateClick(inputElement); // Имитируем клик
+    simulateTyping(inputElement, "sport", 150) // Имитируем набор текста с задержкой 150 мс между символами
+      .then(() => simulateCtrlC()); // После ввода текста выполняем Ctrl + C
   } catch (error) {
     console.error("Ошибка при выполнении кода:", error);
   }
