@@ -1,4 +1,4 @@
-//
+// ! Имитация написания инпута
 
 // Получаем элемент с помощью XPath
 const inputElement = document.evaluate(
@@ -67,3 +67,58 @@ async function simulateTyping(element, text, delay) {
 simulateClick(inputElement); // Имитируем клик
 simulateTyping(inputElement, "sport", 150) // Имитируем набор текста с задержкой 150 мс между символами
   .then(() => simulateCtrlC()); // После ввода текста выполняем Ctrl + C
+
+//
+//
+//! Имитация нажатия мыши (CLICK!)
+// ! Помимо простого click() здесь на сам элемент наводится (hover) что меняет стили если есть псевдо-элемент
+// ! Дальше еще к всему этому надается focus(), что дадает классы если есть псевдоэлемент (focus) и только потом нажимается.
+// ! Что имитирует максимальный клик, так как всегда сначала идет hover потом focus (зажим кнопки) и только потом событие клик
+// ! Очень помогло на сайте https://www.google.com/alerts так как там все события эти меняли класс и без них невохможно было кликнуть.
+
+setTimeout(() => {
+  try {
+    let el = document.querySelector("#create_alert");
+    if (el) {
+      // Прокрутка к элементу
+      el.scrollIntoView();
+
+      // Наведение на элемент (симуляция mouseover)
+      let mouseOverEvent = new MouseEvent("mouseover", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(mouseOverEvent);
+
+      // Симуляция зажатия кнопки мыши (focus через mousedown)
+      let mouseDownEvent = new MouseEvent("mousedown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(mouseDownEvent);
+
+      // Симуляция клика (mouseup + click)
+      let mouseUpEvent = new MouseEvent("mouseup", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(mouseUpEvent);
+
+      let clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(clickEvent);
+
+      console.log("Hovered, focused (mousedown), and clicked!");
+    } else {
+      console.log("Element not found!");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}, 5000);

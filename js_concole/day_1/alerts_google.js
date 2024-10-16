@@ -138,3 +138,242 @@
     console.error("Ошибка при выполнении кода:", error);
   }
 })();
+
+setTimeout(() => {
+  try {
+    let el = document.querySelector("#create_alert");
+    if (el) {
+      // Наведение на элемент (симуляция mouseover)
+      let mouseOverEvent = new MouseEvent("mouseover", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(mouseOverEvent);
+
+      // Клик по элементу
+      let clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      el.dispatchEvent(clickEvent);
+
+      console.log("Hovered and clicked!");
+    } else {
+      console.log("Element not found!");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}, 5000); // Наведение и клик через 5 секунд
+
+<div id="create-alert-options" style="display:none">
+  {" "}
+  <table>
+    {" "}
+    <tbody>
+      <tr>
+        {" "}
+        <td class="label_column">Частота надсилання</td>
+        <td>
+          {" "}
+          <div
+            class="goog-flat-menu-button jfk-select frequency_select goog-inline-block"
+            tabindex="0"
+            role="listbox"
+            aria-activedescendant=":3"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="user-select: none;"
+          >
+            <div
+              class="goog-inline-block goog-flat-menu-button-caption"
+              id=":3"
+              role="option"
+              aria-selected="true"
+              aria-setsize="3"
+              aria-posinset="2"
+            >
+              Щонайбільше раз на день
+            </div>
+            <div
+              class="goog-inline-block goog-flat-menu-button-dropdown"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+      <tr>
+        {" "}
+        <td class="label_column">Джерела</td>{" "}
+        <td>
+          {" "}
+          <div
+            class="goog-flat-menu-button jfk-select source_select goog-inline-block"
+            role="listbox"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-disabled="false"
+            aria-activedescendant=":g"
+            tabindex="0"
+            style="user-select: none;"
+          >
+            <div
+              class="goog-inline-block goog-flat-menu-button-caption"
+              id=":g"
+              role="option"
+              aria-selected="true"
+              aria-setsize="8"
+              aria-posinset="1"
+            >
+              Автоматично
+            </div>
+            <div
+              class="goog-inline-block goog-flat-menu-button-dropdown"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+      <tr>
+        {" "}
+        <td class="label_column">Мова</td>{" "}
+        <td>
+          {" "}
+          <div
+            class="goog-flat-menu-button jfk-select language_select goog-inline-block"
+            tabindex="0"
+            role="listbox"
+            aria-activedescendant=":1t"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="user-select: none;"
+          >
+            <div
+              class="goog-inline-block goog-flat-menu-button-caption"
+              id=":1t"
+              role="option"
+              aria-selected="true"
+              aria-setsize="47"
+              aria-posinset="2"
+            >
+              українська
+            </div>
+            <div
+              class="goog-inline-block goog-flat-menu-button-dropdown"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+      <tr>
+        {" "}
+        <td class="label_column">Регіон</td>{" "}
+        <td>
+          {" "}
+          <div
+            class="goog-flat-menu-button jfk-select region_select goog-inline-block"
+            tabindex="0"
+            role="listbox"
+            aria-activedescendant=":8j"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="user-select: none;"
+          >
+            <div
+              class="goog-inline-block goog-flat-menu-button-caption"
+              id=":8j"
+              role="option"
+              aria-selected="true"
+              aria-setsize="240"
+              aria-posinset="1"
+            >
+              Будь-який регіон
+            </div>
+            <div
+              class="goog-inline-block goog-flat-menu-button-dropdown"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+      <tr>
+        {" "}
+        <td class="label_column">Кількість</td>{" "}
+        <td>
+          {" "}
+          <div
+            class="goog-flat-menu-button jfk-select volume_select goog-inline-block"
+            tabindex="0"
+            role="listbox"
+            aria-activedescendant=":6"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="user-select: none;"
+          >
+            <div
+              class="goog-inline-block goog-flat-menu-button-caption"
+              id=":6"
+              role="option"
+              aria-selected="true"
+              aria-setsize="2"
+              aria-posinset="1"
+            >
+              Лише найкращі результати
+            </div>
+            <div
+              class="goog-inline-block goog-flat-menu-button-dropdown"
+              aria-hidden="true"
+            >
+              &nbsp;
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+      <tr>
+        {" "}
+        <td class="label_column"> Спосіб доставки </td>{" "}
+        <td>
+          {" "}
+          <div class="delivery_select">
+            <div
+              class="goog-inline-block goog-flat-menu-button jfk-select"
+              role="listbox"
+              aria-expanded="false"
+              tabindex="0"
+              aria-haspopup="true"
+              aria-activedescendant=":8n"
+              style="user-select: none;"
+            >
+              <div
+                class="goog-inline-block goog-flat-menu-button-caption"
+                id=":8n"
+                role="option"
+                aria-selected="true"
+                aria-setsize="3"
+                aria-posinset="1"
+              >
+                empresahuaribamba@gmail.com
+              </div>
+              <div
+                class="goog-inline-block goog-flat-menu-button-dropdown"
+                aria-hidden="true"
+              >
+                &nbsp;
+              </div>
+            </div>
+          </div>{" "}
+        </td>{" "}
+      </tr>{" "}
+    </tbody>
+  </table>{" "}
+</div>;

@@ -2,3 +2,4 @@
 
 Имитация клика: Работает эта Asynchronous Event Dispatching 
 https://www.basedash.com/blog/how-to-simulate-a-keypress-in-javascript
+Имитация клика: Следует делать сначала имитацию hover потом focus только потом клик, так как на эти события могут быть всевдо-классы
