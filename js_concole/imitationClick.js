@@ -76,49 +76,47 @@ simulateTyping(inputElement, "sport", 150) // Имитируем набор те
 // ! Что имитирует максимальный клик, так как всегда сначала идет hover потом focus (зажим кнопки) и только потом событие клик
 // ! Очень помогло на сайте https://www.google.com/alerts так как там все события эти меняли класс и без них невохможно было кликнуть.
 
-setTimeout(() => {
-  try {
-    let el = document.querySelector("#create_alert");
-    if (el) {
-      // Прокрутка к элементу
-      el.scrollIntoView();
+try {
+  let el = document.querySelector("#create_alert");
+  if (el) {
+    // Прокрутка к элементу
+    el.scrollIntoView();
 
-      // Наведение на элемент (симуляция mouseover)
-      let mouseOverEvent = new MouseEvent("mouseover", {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-      });
-      el.dispatchEvent(mouseOverEvent);
+    // Наведение на элемент (симуляция mouseover)
+    let mouseOverEvent = new MouseEvent("mouseover", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    el.dispatchEvent(mouseOverEvent);
 
-      // Симуляция зажатия кнопки мыши (focus через mousedown)
-      let mouseDownEvent = new MouseEvent("mousedown", {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-      });
-      el.dispatchEvent(mouseDownEvent);
+    // Симуляция зажатия кнопки мыши (focus через mousedown)
+    let mouseDownEvent = new MouseEvent("mousedown", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    el.dispatchEvent(mouseDownEvent);
 
-      // Симуляция клика (mouseup + click)
-      let mouseUpEvent = new MouseEvent("mouseup", {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-      });
-      el.dispatchEvent(mouseUpEvent);
+    // Симуляция клика (mouseup + click)
+    let mouseUpEvent = new MouseEvent("mouseup", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    el.dispatchEvent(mouseUpEvent);
 
-      let clickEvent = new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-      });
-      el.dispatchEvent(clickEvent);
+    let clickEvent = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    el.dispatchEvent(clickEvent);
 
-      console.log("Hovered, focused (mousedown), and clicked!");
-    } else {
-      console.log("Element not found!");
-    }
-  } catch (error) {
-    console.error("An error occurred:", error);
+    console.log("Hovered, focused (mousedown), and clicked!");
+  } else {
+    console.log("Element not found!");
   }
-}, 5000);
+} catch (error) {
+  console.error("Ошибка при клике:", error);
+}

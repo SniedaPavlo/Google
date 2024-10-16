@@ -9,8 +9,13 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
+(async function () {
   "use strict";
+
+  //   Функция явного ожидания
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   try {
     // Определяем XPath для поиска всех элементов с классом "alert_button create_button"
@@ -56,15 +61,17 @@
       console.log("Кнопки не найдены.");
     }
   } catch (error) {
-    console.error("Ошибка при выполнении кода:", error);
+    console.error("Ошибка при кнопках (плюс):", error);
   }
 
   //
   //
-  //Работаем с инпутом
+  // ! Работаем с инпутом
   //
   //
   //
+  await wait(2000); // Используем await для ожидания
+  console.log("Прошло 2 секунды ожидания");
 
   try {
     // Получаем элемент с помощью XPath
@@ -132,248 +139,64 @@
 
     // Выполняем последовательность действий
     simulateClick(inputElement); // Имитируем клик
-    simulateTyping(inputElement, "sport", 150) // Имитируем набор текста с задержкой 150 мс между символами
-      .then(() => simulateCtrlC()); // После ввода текста выполняем Ctrl + C
+    await simulateTyping(inputElement, "sport", 150); // Имитируем набор текста с задержкой 150 мс между символами
+    simulateCtrlC(); // После ввода текста выполняем Ctrl + C
   } catch (error) {
     console.error("Ошибка при выполнении кода:", error);
   }
-})();
 
-setTimeout(() => {
+  //
+  //
+  //
+  //! Нажатие на "Добавить" после инпута имитируя максимально клик. Сначала hover для смены классов, потом focus и только потом клик!
+  //
+  //
+  //
+  await wait(2000); // Используем await для ожидания
+  console.log("Прошло 2 секунды ожидания");
+
   try {
-    let el = document.querySelector("#create_alert");
-    if (el) {
+    let btn_add = document.querySelector("#create_alert");
+    if (btn_add) {
+      // Прокрутка к элементу
+      btn_add.scrollIntoView();
+
       // Наведение на элемент (симуляция mouseover)
       let mouseOverEvent = new MouseEvent("mouseover", {
         bubbles: true,
         cancelable: true,
         view: window,
       });
-      el.dispatchEvent(mouseOverEvent);
+      btn_add.dispatchEvent(mouseOverEvent);
 
-      // Клик по элементу
+      // Симуляция зажатия кнопки мыши (focus через mousedown)
+      let mouseDownEvent = new MouseEvent("mousedown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      btn_add.dispatchEvent(mouseDownEvent);
+
+      // Симуляция клика (mouseup + click)
+      let mouseUpEvent = new MouseEvent("mouseup", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      btn_add.dispatchEvent(mouseUpEvent);
+
       let clickEvent = new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
         view: window,
       });
-      el.dispatchEvent(clickEvent);
+      btn_add.dispatchEvent(clickEvent);
 
-      console.log("Hovered and clicked!");
+      console.log("Hovered, focused (mousedown), and clicked!");
     } else {
       console.log("Element not found!");
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error("Ошибка при клике:", error);
   }
-}, 5000); // Наведение и клик через 5 секунд
-
-<div id="create-alert-options" style="display:none">
-  {" "}
-  <table>
-    {" "}
-    <tbody>
-      <tr>
-        {" "}
-        <td class="label_column">Частота надсилання</td>
-        <td>
-          {" "}
-          <div
-            class="goog-flat-menu-button jfk-select frequency_select goog-inline-block"
-            tabindex="0"
-            role="listbox"
-            aria-activedescendant=":3"
-            aria-expanded="false"
-            aria-haspopup="true"
-            style="user-select: none;"
-          >
-            <div
-              class="goog-inline-block goog-flat-menu-button-caption"
-              id=":3"
-              role="option"
-              aria-selected="true"
-              aria-setsize="3"
-              aria-posinset="2"
-            >
-              Щонайбільше раз на день
-            </div>
-            <div
-              class="goog-inline-block goog-flat-menu-button-dropdown"
-              aria-hidden="true"
-            >
-              &nbsp;
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-      <tr>
-        {" "}
-        <td class="label_column">Джерела</td>{" "}
-        <td>
-          {" "}
-          <div
-            class="goog-flat-menu-button jfk-select source_select goog-inline-block"
-            role="listbox"
-            aria-expanded="false"
-            aria-haspopup="true"
-            aria-disabled="false"
-            aria-activedescendant=":g"
-            tabindex="0"
-            style="user-select: none;"
-          >
-            <div
-              class="goog-inline-block goog-flat-menu-button-caption"
-              id=":g"
-              role="option"
-              aria-selected="true"
-              aria-setsize="8"
-              aria-posinset="1"
-            >
-              Автоматично
-            </div>
-            <div
-              class="goog-inline-block goog-flat-menu-button-dropdown"
-              aria-hidden="true"
-            >
-              &nbsp;
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-      <tr>
-        {" "}
-        <td class="label_column">Мова</td>{" "}
-        <td>
-          {" "}
-          <div
-            class="goog-flat-menu-button jfk-select language_select goog-inline-block"
-            tabindex="0"
-            role="listbox"
-            aria-activedescendant=":1t"
-            aria-expanded="false"
-            aria-haspopup="true"
-            style="user-select: none;"
-          >
-            <div
-              class="goog-inline-block goog-flat-menu-button-caption"
-              id=":1t"
-              role="option"
-              aria-selected="true"
-              aria-setsize="47"
-              aria-posinset="2"
-            >
-              українська
-            </div>
-            <div
-              class="goog-inline-block goog-flat-menu-button-dropdown"
-              aria-hidden="true"
-            >
-              &nbsp;
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-      <tr>
-        {" "}
-        <td class="label_column">Регіон</td>{" "}
-        <td>
-          {" "}
-          <div
-            class="goog-flat-menu-button jfk-select region_select goog-inline-block"
-            tabindex="0"
-            role="listbox"
-            aria-activedescendant=":8j"
-            aria-expanded="false"
-            aria-haspopup="true"
-            style="user-select: none;"
-          >
-            <div
-              class="goog-inline-block goog-flat-menu-button-caption"
-              id=":8j"
-              role="option"
-              aria-selected="true"
-              aria-setsize="240"
-              aria-posinset="1"
-            >
-              Будь-який регіон
-            </div>
-            <div
-              class="goog-inline-block goog-flat-menu-button-dropdown"
-              aria-hidden="true"
-            >
-              &nbsp;
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-      <tr>
-        {" "}
-        <td class="label_column">Кількість</td>{" "}
-        <td>
-          {" "}
-          <div
-            class="goog-flat-menu-button jfk-select volume_select goog-inline-block"
-            tabindex="0"
-            role="listbox"
-            aria-activedescendant=":6"
-            aria-expanded="false"
-            aria-haspopup="true"
-            style="user-select: none;"
-          >
-            <div
-              class="goog-inline-block goog-flat-menu-button-caption"
-              id=":6"
-              role="option"
-              aria-selected="true"
-              aria-setsize="2"
-              aria-posinset="1"
-            >
-              Лише найкращі результати
-            </div>
-            <div
-              class="goog-inline-block goog-flat-menu-button-dropdown"
-              aria-hidden="true"
-            >
-              &nbsp;
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-      <tr>
-        {" "}
-        <td class="label_column"> Спосіб доставки </td>{" "}
-        <td>
-          {" "}
-          <div class="delivery_select">
-            <div
-              class="goog-inline-block goog-flat-menu-button jfk-select"
-              role="listbox"
-              aria-expanded="false"
-              tabindex="0"
-              aria-haspopup="true"
-              aria-activedescendant=":8n"
-              style="user-select: none;"
-            >
-              <div
-                class="goog-inline-block goog-flat-menu-button-caption"
-                id=":8n"
-                role="option"
-                aria-selected="true"
-                aria-setsize="3"
-                aria-posinset="1"
-              >
-                empresahuaribamba@gmail.com
-              </div>
-              <div
-                class="goog-inline-block goog-flat-menu-button-dropdown"
-                aria-hidden="true"
-              >
-                &nbsp;
-              </div>
-            </div>
-          </div>{" "}
-        </td>{" "}
-      </tr>{" "}
-    </tbody>
-  </table>{" "}
-</div>;
+})();
