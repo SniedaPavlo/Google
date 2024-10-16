@@ -64,3 +64,16 @@ def search_and_click_to_site(driver, search, url_consider):
         
     except Exception as e:
         print('Ошибка в utils/driver.py функция "sarch_and_click_to_site":', e)
+        
+        
+        
+#! Асинхзронный клик по элементу с ожиданием 5 секунд
+def asyncClickToXpath5Sec(driver, xpath):
+    try:
+        btn_load_more = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, xpath))
+        )
+        print('cliked to element:', btn_load_more)
+        btn_load_more.click()
+    except Exception as e:
+        print('Ошибка в функции "asyncClickToXpath5Sec":', e)

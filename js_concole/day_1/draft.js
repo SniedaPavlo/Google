@@ -242,3 +242,85 @@
     console.error("Ошибка при клике:", error);
   }
 })();
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// !      https://www.theguardian.com/email-newsletters
+const xpath = '//*[@class="dcr-1pj4jor"]';
+const result = document.evaluate(
+  xpath,
+  document,
+  null,
+  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+  null
+);
+
+let i = 0;
+function clickButton() {
+  if (i < result.snapshotLength) {
+    const button = result.snapshotItem(i);
+    button.click();
+    i++;
+    setTimeout(clickButton, 1000);
+  }
+}
+
+clickButton();
+
+// !        https://www.cheshire-live.co.uk/account/?pq=news&tab=my-newsletters
+
+//Активация попапов
+const xpath_active = "//*[@class='active']";
+const result_active = document.evaluate(
+  xpath,
+  document,
+  null,
+  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+  null
+);
+
+let k = 0;
+function clickButton() {
+  if (k < result.snapshotLength) {
+    const button = result_active.snapshotItem(i);
+    button.click();
+    k++;
+    setTimeout(clickButton, 500); // Пауза 7 секунд перед следующим нажатием
+  }
+}
+
+clickButton();
+// Добавления ньювлеттерс
+sub_xpath = "//*[@class='newsletter-subscribe-button css-19172jd']";
+
+const result_sub = document.evaluate(
+  xpath,
+  document,
+  null,
+  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+  null
+);
+
+let j = 0;
+function clickButtonSub() {
+  if (j < result.snapshotLength) {
+    const button = result_sub.snapshotItem(i);
+    button.click();
+    k++;
+    setTimeout(clickButton, 1000); // Пауза 7 секунд перед следующим нажатием
+  }
+}
+
+clickButtonSub();
