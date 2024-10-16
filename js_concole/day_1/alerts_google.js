@@ -10,12 +10,54 @@
 // ==/UserScript==
 
 (async function () {
-  "use strict";
+  ("use strict");
 
   //   Функция явного ожидания
   function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+
+  const popularWords = [
+    "Sport",
+    "Technology",
+    "AI",
+    "Climate Change",
+    "Music",
+    "Space Exploration",
+    "Travel",
+    "Photography",
+    "Food",
+    "Gaming",
+    "Fashion",
+    "Mental Health",
+    "Innovation",
+    "Finance",
+    "Entrepreneurship",
+  ];
+
+  // Функция для получения случайного массива из 12-14 слов
+  function getRandomWords() {
+    // Копируем массив, чтобы не изменять оригинальный
+    const shuffledWords = [...popularWords];
+    // Перемешиваем массив
+    for (let i = shuffledWords.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledWords[i], shuffledWords[j]] = [
+        shuffledWords[j],
+        shuffledWords[i],
+      ];
+    }
+
+    // Возвращаем случайное количество элементов (от 12 до 14)
+    const randomLength = Math.floor(Math.random() * 3) + 12;
+    return shuffledWords.slice(0, randomLength);
+  }
+
+  // Генерация случайного массива
+  const randomWords = getRandomWords();
+  console.log(randomWords);
+
+  for (let i = 0; i < randomWords.length; i++) {}
 
   try {
     // Определяем XPath для поиска всех элементов с классом "alert_button create_button"
@@ -139,7 +181,7 @@
 
     // Выполняем последовательность действий
     simulateClick(inputElement); // Имитируем клик
-    await simulateTyping(inputElement, "sport", 150); // Имитируем набор текста с задержкой 150 мс между символами
+    await simulateTyping(inputElement, i.toString(), 150); // Имитируем набор текста с задержкой 150 мс между символами
     simulateCtrlC(); // После ввода текста выполняем Ctrl + C
   } catch (error) {
     console.error("Ошибка при выполнении кода:", error);
