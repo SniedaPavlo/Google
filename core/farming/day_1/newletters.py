@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS
+from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, switch_to_window_url
 
 import time
 import random
@@ -178,25 +178,9 @@ def cheshire(driver):
     time.sleep(2)
     windows = driver.window_handles
     print('windows', windows)
-    time.sleep(3)
-    
-    # driver.switch_to.window(windows[1])
-    # print('driver.switch_to.window(windows[1])', driver.current_url)  # Получаем URL для окна 1
-    # driver.switch_to.window(windows[0])
-    # print('driver.switch_to.window(windows[0])', driver.current_url) 
-    
-    # Перебираем окна
-    for window in windows:
-        # Переключаемся на окно
-        driver.switch_to.window(window)
-        
-        # Получаем текущий URL
-        current_url = driver.current_url
-        
-        # Проверяем, содержит ли URL 'https://accounts.google.com/o/oauth2/'
-        if 'https://accounts.google.com/o/oauth2/' in current_url:
-            print(f"Нашли нужное окно с URL: {current_url}")
-            break
+    time.sleep(1)
+
+    switch_to_window_url(driver,  'https://accounts.google.com/o/oauth2/')
         
     time.sleep(1)
     asyncClickToXpath5SecJS(driver, "//*[@class='VV3oRb YZVTmd SmR8']")
@@ -213,7 +197,32 @@ def cheshire(driver):
         
     #клик на contuniue
     time.sleep(2)
-    asyncClickToXpath5SecJS(driver, "//*[@class='VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-INsAgc VfPpkd-LgbsSe-OWXEXe-dgl2Hf Rj2Mlf OLiIxf PDpWxe P62QJc LQeN7 BqKGqe pIzcPc TrZEUc lw1w4b']")
+    asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
     
+    windows = driver.window_handles
+    driver.switch_to.window(windows[0])
+    
+    time.sleep(4)
+    driver.get('https://www.cheshire-live.co.uk/account/?pq=news&tab=my-newsletters')
+    
+    
+    
+    #Клик на все новости 
+    asyncClickToXpath5SecJS(driver, '//*[@id="newsLetterDiv"]/div/div/ul/div[1]/li/button')
+    time.sleep(5)
+    
+    #Попапі внутри которійх кнопки подписок
+    popups = driver.find_elements(By.XPATH, "//*[@class='accordion-title']")
+    
+    for popup in popups:
+        popup.click()
+        time.sleep(2)
+        
+    #кнопки подписок
+    subsribes = driver.find_elements(By.XPATH, '//*[@class="newsletter-subscribe-button css-19172jd"]')
+        
+    for sub in subsribes:
+        sub.click()
+        time.sleep(2)
     
     

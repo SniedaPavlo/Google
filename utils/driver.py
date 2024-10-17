@@ -87,3 +87,21 @@ def asyncClickToXpath5SecJS(driver, xpath):
         driver.execute_script("arguments[0].click();", btn)
     except Exception as e:
         print(f'Ошибка в функции "asyncClickToXpath5Sec" не удалось кликнуть по xpath {xpath}', e)
+        
+# ! Переключает на окно котороое содержит нужный URL
+def switch_to_window_url(driver, url):
+    
+    windows = windows = driver.window_handles
+    
+    # Перебираем окна
+    for window in windows:
+        # Переключаемся на окно
+        driver.switch_to.window(window)
+        
+        # Получаем текущий URL
+        current_url = driver.current_url
+        
+        # Проверяем, содержит ли URL
+        if url in current_url:
+            print(f"Нашли нужное окно с URL: {current_url}")
+            break
