@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-from utils.driver import asyncClickToXpath5Sec
+from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS
 
 import time
 import random
@@ -149,13 +149,71 @@ def google_alerts(driver):
     for char in random_selection:
         input_search.click()
         input_search.clear()
+        time.sleep(1)
         input_search.send_keys(char)
         input_search.send_keys(Keys.RETURN)
-        
+        time.sleep(1)
         # Добавляем
         asyncClickToXpath5Sec(driver, '//*[@id="create_alert"]')
         
     
+    
+    
+#! -------cheshire---------
+# https://www.cheshire-live.co.uk/
+def cheshire(driver):
+    driver.get('https://www.cheshire-live.co.uk/')
+    
+    #Клик на модальное окно
+    try:
+        asyncClickToXpath5Sec(driver, '//*[@id="CIPAConsentNotice"]/div/div[3]/button')
+    except Exception as e:
+        print('Нет модального окна на сайте https://www.cheshire-live.co.uk/ функция "cheshire":', e)
+        
+    #клик на иконку профиля
+    asyncClickToXpath5SecJS(driver, '/html/body/header/div[1]/profile-icon')
+    #клик на вход по гугл
+    asyncClickToXpath5SecJS(driver, "//*[@class='auth-ui-social__button auth-ui-social__button--google']")
+    
+    time.sleep(2)
+    windows = driver.window_handles
+    print('windows', windows)
+    time.sleep(3)
+    
+    # driver.switch_to.window(windows[1])
+    # print('driver.switch_to.window(windows[1])', driver.current_url)  # Получаем URL для окна 1
+    # driver.switch_to.window(windows[0])
+    # print('driver.switch_to.window(windows[0])', driver.current_url) 
+    
+    # Перебираем окна
+    for window in windows:
+        # Переключаемся на окно
+        driver.switch_to.window(window)
+        
+        # Получаем текущий URL
+        current_url = driver.current_url
+        
+        # Проверяем, содержит ли URL 'https://accounts.google.com/o/oauth2/'
+        if 'https://accounts.google.com/o/oauth2/' in current_url:
+            print(f"Нашли нужное окно с URL: {current_url}")
+            break
+        
+    time.sleep(1)
+    asyncClickToXpath5SecJS(driver, "//*[@class='VV3oRb YZVTmd SmR8']")
+
+    try:
+        # time.sleep(1)
+        input_password = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
+        input_password.send_keys('Default4444')
+        
+        #клик на next 
+        asyncClickToXpath5SecJS(driver, '//*[@id="passwordNext"]/div/button')
+    except Exception as e:
+        print('Нет инпута пароля при auth google. Продолжаем без него')
+        
+    #клик на contuniue
+    time.sleep(2)
+    asyncClickToXpath5SecJS(driver, "//*[@class='VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-INsAgc VfPpkd-LgbsSe-OWXEXe-dgl2Hf Rj2Mlf OLiIxf PDpWxe P62QJc LQeN7 BqKGqe pIzcPc TrZEUc lw1w4b']")
     
     
     

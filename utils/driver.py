@@ -70,10 +70,20 @@ def search_and_click_to_site(driver, search, url_consider):
 #! Асинхзронный клик по элементу с ожиданием 5 секунд
 def asyncClickToXpath5Sec(driver, xpath):
     try:
-        btn_load_more = WebDriverWait(driver, 5).until(
+        btn = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.XPATH, xpath))
         )
-        print('cliked to element:', btn_load_more)
-        btn_load_more.click()
+        print('cliked to element:', btn)
+        btn.click()
     except Exception as e:
-        print('Ошибка в функции "asyncClickToXpath5Sec":', e)
+        print(f'Ошибка в функции "asyncClickToXpath5Sec" не удалось кликнуть по xpath {xpath}', e)
+        
+def asyncClickToXpath5SecJS(driver, xpath):
+    try:
+        btn = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, xpath))
+        )
+        print('cliked JS to element:', btn)
+        driver.execute_script("arguments[0].click();", btn)
+    except Exception as e:
+        print(f'Ошибка в функции "asyncClickToXpath5Sec" не удалось кликнуть по xpath {xpath}', e)
