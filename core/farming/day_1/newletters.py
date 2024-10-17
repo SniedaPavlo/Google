@@ -224,3 +224,53 @@ def cheshire(driver):
         time.sleep(3)
     
     
+#!-------theguardian-------
+# https://www.theguardian.com/
+
+def theguardian(driver): 
+    driver.get('https://www.theguardian.com/')
+    #click sing in
+    asyncClickToXpath5SecJS(driver, '//*[@id="bannerandheader"]/header/section[1]/div/div/gu-island/div/div/div[2]/a')
+    #click google 
+    asyncClickToXpath5SecJS(driver, '//*[@id="app"]/main/section/div[2]/a[1]')
+    #click google acc
+    asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/div[1]/div[1]/div[2]/div/div/div[2]/div/div/div[1]/form/span/section/div/div/div/div/ul/li[1]/div')
+    
+    #Водим пароль, если есть инпут под него
+    try:
+        input_password = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
+        input_password.send_keys('Default4444')
+        
+        #клик на next 
+        asyncClickToXpath5SecJS(driver, '//*[@id="passwordNext"]/div/button')
+    except:
+        print('Нет инпута для пароля')
+    #click continue
+    asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
+    #click confirm 
+    asyncClickToXpath5SecJS(driver, '//*[@id="app"]/main/section/form/button')
+    #click save and confirm 
+    asyncClickToXpath5SecJS(driver, '//*[@id="app"]/main/section/form/button')
+    #click mabu later
+    asyncClickToXpath5SecJS(driver, '//*[@id="app"]/main/section/form/button')
+    
+    driver.get('https://www.theguardian.com/email-newsletters')
+    time.sleep(4)
+    driver.get('https://www.theguardian.com/email-newsletters')
+    
+    
+    btns_subscribe = driver.find_elements(By.XPATH, '//*[@class="dcr-1pj4jor"]')
+    for btn_sub in btns_subscribe:
+        try:
+            driver.execute_script('arguments[0].click();', btn_sub)
+            time.sleep(2)
+        except:
+            pass
+    
+    print('ФУНКЦИЯ theguardian выполнена')
+    
+    
+    
+    
+    
+    
