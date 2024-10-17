@@ -6,10 +6,24 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, switch_to_window_url
+from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
 
 import time
 import random
+
+
+
+# ! --------news.google.com-------
+# https://news.google.com/
+def google_news_subscribe(driver):
+    driver.get('https://news.google.com/')
+    popups = driver.find_elements(By.XPATH, "//*[@class='brSCsc' and @jsname='sCfAK']")
+    
+    for popup in popups:
+        driver.execute_script('arguments[0].click()', popup)
+        
+        #клик на подписку
+        asyncClickToXpath2SecJS(driver, '//*[@id="yDmH0d"]/c-wiz[5]/div/main/c-wiz/div/div[2]/div/span/div[1]/button')
 
 # https://www.spiegel.de/
 # ! --------spiegel-------
@@ -266,9 +280,8 @@ def theguardian(driver):
             time.sleep(2)
         except:
             pass
-    
+    # РЕФАКТОРИНГ - может следует дописать код по подтверждении почты.
     print('ФУНКЦИЯ theguardian выполнена')
-    
     
     
     
