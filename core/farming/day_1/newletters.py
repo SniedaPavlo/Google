@@ -272,7 +272,6 @@ def theguardian(driver):
     time.sleep(4)
     driver.get('https://www.theguardian.com/email-newsletters')
     
-    
     btns_subscribe = driver.find_elements(By.XPATH, '//*[@class="dcr-1pj4jor"]')
     for btn_sub in btns_subscribe:
         try:
