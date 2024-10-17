@@ -9,9 +9,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from utils.driver import asyncClickToXpath5Sec
 
 import time
+import random
 
 # https://www.spiegel.de/
-
+# ! --------spiegel-------
 def spiegel(driver):
     driver.get('https://www.spiegel.de/')
     
@@ -31,7 +32,7 @@ def spiegel(driver):
         asyncClickToXpath5Sec(driver, '//*[@id="Inhalt"]/div[1]/div/div[2]/div[1]/a[2]')
         
         input_username = driver.find_element(By.XPATH, "//*[@id='username']")
-        input_username.send_keys('swiss20kteam6@gmail.com')
+        input_username.send_keys('panificadoracentralnobres42@gmail.com')
         
         #клика на кнопку next 
         asyncClickToXpath5Sec(driver, '//*[@id="submit"]')
@@ -51,12 +52,12 @@ def spiegel(driver):
         
         #клик по кнопке submit
         asyncClickToXpath5Sec(driver, '//*[@id="submit"]')
+        time.sleep(2)
         
         #----Наступная страница------
         asyncClickToXpath5Sec(driver, '//*[@id="salutation"]/div[1]/label')
         input_vorname = driver.find_element(By.XPATH, '//*[@id="givenname"]')
         input_vorname.send_keys('tetsnamee3999')
-        
         
         input_hachname = driver.find_element(By.XPATH, '//*[@id="surname"]')
         input_hachname.send_keys('tetsnamee99')
@@ -72,6 +73,7 @@ def spiegel(driver):
         
         #клик на некст
         asyncClickToXpath5Sec(driver, '//*[@id="submit"]')
+        time.sleep(2)
         
     except Exception as e:
         print('Ошибка на сайте https://www.spiegel.de/ функция "spiegel":', e)
@@ -80,13 +82,13 @@ def spiegel(driver):
     #! Подтверждение почты 
     try:
         driver.get('https://mail.google.com/mail/')
+        time.sleep(8)
         
         mail_box = driver.find_element(By.XPATH, "//*[text()='DER SPIEGEL']/../../../..")
         mail_box.click()
         
         ref_linkt_verify_token = driver.find_element(By.XPATH, "//*[@rel='noreferrer']")
         driver.get(ref_linkt_verify_token.get_attribute('href'))
-        # asyncClickToXpath5Sec(driver, '//*[@id=":ba"]/a[1]')
         
         time.sleep(4)
         driver.get('https://www.spiegel.de/newsletter')
@@ -114,3 +116,46 @@ def spiegel(driver):
             
     except:
         print('Ошибка при нажатии на кнопки newsletter')
+        
+        
+        
+        
+# !-------- google alerts ------
+# https://www.google.com/alerts
+def google_alerts(driver):
+    
+    popular_words = [
+        "Sport", "Technology", "AI", "Climate Change", "Music",
+        "Space Exploration", "Travel", "Photography", "Food", 
+        "Gaming", "Fashion", "Mental Health", "Innovation", 
+        "Finance", "Entrepreneurship", "Health", "Movies", 
+        "Art", "Education", "Nature"
+    ]
+    
+    # Генерация нового списка от 12 до 16 случайных элементов
+    random_selection = random.sample(popular_words, random.randint(12, 16))
+
+    driver.get('https://www.google.com/alerts')
+    try:
+        #клик по первой кнопке
+        asyncClickToXpath5Sec(driver, '//*[@id="gb-main"]/div[2]/div[2]/div/div[5]/div[1]/div/div/div/div[1]/div/div/div[2]/span[1]')
+        #клик по второй кнопке
+        asyncClickToXpath5Sec(driver, '//*[@id="gb-main"]/div[2]/div[2]/div/div[5]/div[1]/div/div/div/div[2]/div/div/div[2]/span[1]')
+    except Exception as e:
+        print('Нет стартовых кнопок на https://www.google.com/alerts. Ошибка в функции "google_alerts":', e)
+    
+    input_search = driver.find_element(By.XPATH, '//*[@id="query_div"]/input')
+        
+    for char in random_selection:
+        input_search.click()
+        input_search.clear()
+        input_search.send_keys(char)
+        input_search.send_keys(Keys.RETURN)
+        
+        # Добавляем
+        asyncClickToXpath5Sec(driver, '//*[@id="create_alert"]')
+        
+    
+    
+    
+    
