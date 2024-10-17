@@ -47,7 +47,6 @@ def search_and_click_to_site(driver, search, url_consider):
     search = текст который в квери параметры попадает и ищем по нему
     url_consider = текст, который сравнимваем если содержит href сайта - переходим по нему.
     '''
-    close_all_windows_driver(driver)
     
     try:
         

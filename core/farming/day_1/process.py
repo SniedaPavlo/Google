@@ -7,7 +7,8 @@ from core.farming.day_1.post_info_profile import post_info_profile
 def process_day_1(driver):
     #Нагуливаю куки на гигантов
     try:
-        post_info_profile(driver)
+        cookies(driver)
+        # post_info_profile(driver)
         
     except Exception as e:
         print('Ошибка в core/farming/day_1/process.py функция process_day_1:', e)
