@@ -19,6 +19,7 @@ from logo_api.my_driver import return_my_driver
 
 from core.farming.day_1.cookies import cookies
 from core.farming.day_1.process import process_day_1
+from core.farming.day_2.process import process_day_2
 # update_profile('8d700ad49f9449988715a1008f305e93', {"title": 'testAPI'})
 
 # from octo_api.my_driver import return_my_driver
@@ -106,10 +107,10 @@ try:
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
     
-    # driver = return_my_driver(28266, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    driver = driver = open_profile_by_id('66fb0b1aea246fda1192027f', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    driver = return_my_driver(25973, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
+    # driver = driver = open_profile_by_id('67100fa3ad086e7ee7870fe1', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
-    process_day_1(driver)
+    process_day_2(driver)
     
     
     # print('driver', driver)

@@ -73,20 +73,47 @@ def asyncClickToXpath5Sec(driver, xpath):
         btn = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.XPATH, xpath))
         )
-        print('cliked to element:', btn)
+        print('cliked to element:', xpath)
         btn.click()
     except Exception as e:
         print(f'Ошибка в функции "asyncClickToXpath5Sec" не удалось кликнуть по xpath {xpath}', e)
+        
+        
+def asyncClickToXpath2Sec(driver, xpath):
+    try:
+        btn = WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.XPATH, xpath))
+        )
+        print('cliked to element:', xpath)
+        btn.click()
+    except Exception as e:
+        print(f'Ошибка в функции "asyncClickToXpath2Sec" не удалось кликнуть по xpath {xpath}', e)
         
 def asyncClickToXpath5SecJS(driver, xpath):
     try:
         btn = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.XPATH, xpath))
         )
-        print('cliked JS to element:', btn)
+        print('cliked JS to element:', xpath)
         driver.execute_script("arguments[0].click();", btn)
     except Exception as e:
         print(f'Ошибка в функции "asyncClickToXpath5Sec" не удалось кликнуть по xpath {xpath}', e)
+        
+        
+def asyncClickToXpath2SecJS(driver, xpath):
+    try:
+        btn = WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.XPATH, xpath))
+        )
+        print('cliked JS to element:', xpath)
+        driver.execute_script("arguments[0].click();", btn)
+    except Exception as e:
+        print(f'Ошибка в функции "asyncClickToXpath2Sec" не удалось кликнуть по xpath {xpath}', e)
+        
+        
+        #
+        #
+        #
         
 # ! Переключает на окно котороое содержит нужный URL
 def switch_to_window_url(driver, url):

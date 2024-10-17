@@ -205,8 +205,6 @@ def cheshire(driver):
     time.sleep(4)
     driver.get('https://www.cheshire-live.co.uk/account/?pq=news&tab=my-newsletters')
     
-    
-    
     #Клик на все новости 
     asyncClickToXpath5SecJS(driver, '//*[@id="newsLetterDiv"]/div/div/ul/div[1]/li/button')
     time.sleep(5)
@@ -223,6 +221,6 @@ def cheshire(driver):
         
     for sub in subsribes:
         sub.click()
-        time.sleep(2)
+        time.sleep(3)
     
     
