@@ -10,7 +10,7 @@ from data.config import DONT_CLOSE_WINDOW_URL
 import time
 
 
-def close_all_windows_driver(driver):
+def close_all_windows_driver(driver, DONT_CLOSE_WINDOW_URL):
     try:
         all_windows = driver.window_handles
         time.sleep(1)

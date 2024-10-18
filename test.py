@@ -107,8 +107,8 @@ try:
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
     
-    driver = return_my_driver(20645, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    # driver = driver = open_profile_by_id('66fb0a6428bc77dfa31668ef', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    driver = return_my_driver(24981, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
+    # driver = driver = open_profile_by_id('671225c8dd560684caf63f88', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
     process_day_1(driver)
     
@@ -127,3 +127,6 @@ except Exception as e:
 # res = delete_profiles(['c570aec53d8d48ec8dfc41b35700c04d', 'e0ab073319d24e43b2136b2b7d492892'])
 # driver.get('https://www.youtube.com/')
 # print('res', res)
+
+
+

@@ -31,11 +31,36 @@ def auth_google(driver, password):
         asyncClickToXpath5SecJS(driver, '//*[@id="passwordNext"]/div/button')
     except Exception as e:
         print('Нет инпута пароля при auth google. Продолжаем без него')
+    finally:
+        #клик на contuniue
+        try:
+            asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
+        except Exception as e:
+            print('Нет кнопки "continue" при входе гугл. Работаем без нее.')
+        finally:
+            windows = driver.window_handles
+            driver.switch_to.window(windows[0])
+            
+    
+def auth_google_current_window(driver, password):
+    asyncClickToXpath5SecJS(driver, "//*[@class='VV3oRb YZVTmd SmR8']")
+
+    try:
+        # time.sleep(1)
+        input_password = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
+        input_password.send_keys(password)
         
-    #клик на contuniue
-    time.sleep(2)
-    asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
-    
-    windows = driver.window_handles
-    driver.switch_to.window(windows[0])
-    
+        #клик на next 
+        asyncClickToXpath5SecJS(driver, '//*[@id="passwordNext"]/div/button')
+    except Exception as e:
+        print('Нет инпута пароля при auth google. Продолжаем без него')
+    finally:
+        
+        #клик на contuniue
+        try:
+            asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
+        except Exception as e:
+            print('Нет кнопки "continue" при входе гугл. Работаем без нее.')
+        finally:
+            windows = driver.window_handles
+            driver.switch_to.window(windows[0])
