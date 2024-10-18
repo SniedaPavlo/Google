@@ -15,11 +15,12 @@ from logo_api.LocalRestAPI.open_profile_by_id import  open_profile_by_id
 from logo_api.LocalRestAPI.stop_profile_by_id import stop_profile_by_id
 from logo_api.my_driver import return_my_driver
 
-
-
 from core.farming.day_1.cookies import cookies
 from core.farming.day_1.process import process_day_1
 from core.farming.day_2.process import process_day_2
+
+
+
 # update_profile('8d700ad49f9449988715a1008f305e93', {"title": 'testAPI'})
 
 # from octo_api.my_driver import return_my_driver
@@ -101,16 +102,15 @@ from core.farming.day_2.process import process_day_2
 # if start_time:
 #     print(f"Процесс {pid} был запущен: {start_time}")
     
-    
 try:
     # print('get_process_path_by_port', get_process_path_by_port(58888))
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
     
-    driver = return_my_driver(24981, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    # driver = driver = open_profile_by_id('671225c8dd560684caf63f88', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    # driver = return_my_driver(20231, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
+    driver = driver = open_profile_by_id('66fb0b1bea246fda11920301', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
-    process_day_1(driver)
+    process_day_2(driver)
     
     
     # print('driver', driver)

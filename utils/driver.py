@@ -39,32 +39,7 @@ def close_all_windows_driver(driver, DONT_CLOSE_WINDOW_URL):
     
     except Exception as e:
         print(f"Ошибка при переключении на первое окно: {e}")
-            
-            
-#! Поиск(search google) и клик по нужному сайту 
-def search_and_click_to_site(driver, search, url_consider):
-    '''
-    search = текст который в квери параметры попадает и ищем по нему
-    url_consider = текст, который сравнимваем если содержит href сайта - переходим по нему.
-    '''
-    
-    try:
-        
-        driver.execute_script("window.open('https://www.google.com', 'new_window')")
-        time.sleep(2)
-        driver.get(f'https://www.google.com/search?q={search}')
-        
-        sites = driver.find_elements(By.XPATH, "//a[@jsname='UWckNb']")
-        for site in sites:
-            href = site.get_attribute('href')
-            if url_consider in href: 
-                site.click()
-                break
-        
-    except Exception as e:
-        print('Ошибка в utils/driver.py функция "sarch_and_click_to_site":', e)
-        
-        
+                
         
 #! Асинхзронный клик по элементу с ожиданием 5 секунд
 def asyncClickToXpath5Sec(driver, xpath):

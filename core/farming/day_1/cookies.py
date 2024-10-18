@@ -1,6 +1,6 @@
 from utils.driver import close_all_windows_driver
 
-from utils.driver import search_and_click_to_site
+from utils.google import search_and_click_to_site, search_and_click_to_site_and_scroll
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
 from utils.google import auth_google, auth_google_current_window
 
@@ -12,12 +12,24 @@ from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncCl
 import time
 import random
 
-
-
-import time
 def cookies(driver):
     '''Нагуливаем куки на гигантах'''
-    # canvas(driver)
+    try:
+        canvas(driver)
+    except Exception as e:
+        print('Ошибка при регистрации canvas')
+    try:
+        pinterest(driver)
+    except Exception as e:
+        print('Ошибка при регистрации pinterest')
+    try:
+        search_and_click_to_site_and_scroll(driver, 'amazon+buy+books', 'www.amazon.com')
+        search_and_click_to_site_and_scroll(driver, 'facebook', 'facebook.com')
+        search_and_click_to_site_and_scroll(driver, 'yahoo', 'www.yahoo.com')
+        search_and_click_to_site_and_scroll(driver, 'Twitter', 'x.com')
+    except Exception as e:
+        print('Ошибка при нагуле кук 1 дей')
+        
     
     try:
         pinterest(driver)
@@ -26,7 +38,11 @@ def cookies(driver):
         
     time.sleep(20)
     # gpt(driver)
-    # search_and_click_to_site(driver, 'amazon+buy+books', 'www.amazon.com')
+    search_and_click_to_site_and_scroll(driver, 'amazon+buy+books', 'www.amazon.com')
+    search_and_click_to_site_and_scroll(driver, 'facebook', 'facebook.com')
+    search_and_click_to_site_and_scroll(driver, 'yahoo', 'www.yahoo.com')
+    search_and_click_to_site_and_scroll(driver, 'Twitter', 'x.com')
+
     
 def canvas(driver):
     driver.get('https://www.canva.com/')
@@ -52,8 +68,7 @@ def gpt(driver):
     auth_google_current_window(driver, 'Default4444')
     
     
-    
-    
+# ! pinterest 
 def pinterest(driver):
     driver.get('https://www.pinterest.com/')
     
@@ -94,8 +109,10 @@ def pinterest(driver):
         imgs[3].click()
         imgs[4].click()
         imgs[5].click()
-        asyncClickToXpath5Sec(driver, '/html/body/div[4]/div/div/div/div[2]/div/div/div/div[3]/div/div[3]/div/div[1]/div/div/div/div/div/div/div')
         
+        asyncClickToXpath5Sec(driver, '/html/body/div[4]/div/div/div/div[2]/div/div/div/div[3]/div/div[4]/div[2]/button')
+        
+        time.sleep(15)
     except:
         pass
     
