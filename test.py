@@ -107,8 +107,8 @@ try:
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
     
-    # driver = return_my_driver(20231, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    driver = driver = open_profile_by_id('66fb0b1bea246fda11920301', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    # driver = return_my_driver(22409, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
+    driver = driver = open_profile_by_id('66fb0b1aea246fda119202d1', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
     process_day_2(driver)
     
