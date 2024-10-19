@@ -144,6 +144,8 @@ def firebase(driver):
     # click continue
     asyncClickToXpath5Sec(driver, '//*[@id="cdk-overlay-2"]/fire-full-screen-modal/mat-sidenav-container/mat-sidenav/div/c5e-create-project-dialog/fire-full-screen-modal-container/fire-full-screen-modal-content/submit-page/create-project-content/div/div/button')
     
+    # ДАЛЬЕШЕ РЕГ ВНУТРИШНЕГО СЕРВИСА
+    
     # РЕФАКТОРИНГ - можно еще дописать регистарацию внутришних сервисов
     
     
