@@ -95,9 +95,6 @@ def search_and_click_to_site_and_scroll(driver, search, url_consider):
     '''
     
     try:
-        
-        driver.execute_script("window.open('https://www.google.com', 'new_window')")
-        time.sleep(2)
         driver.get(f'https://www.google.com/search?q={search}')
         
         sites = driver.find_elements(By.XPATH, "//a[@jsname='UWckNb']")

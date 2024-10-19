@@ -14,7 +14,7 @@ import random
 
 
 
-def post_info_profile(driver):
+def post_info_profile(driver, acc_path):
     driver.get('https://myaccount.google.com/personal-info?')
     #клик на гендер
     asyncClickToXpath5SecJS(driver, ' //*[@id="yDmH0d"]/c-wiz/div/div[2]/div/c-wiz/c-wiz/div/div[3]/div/div/c-wiz/section/div[2]/div/div/div[5]/div[2]/a')

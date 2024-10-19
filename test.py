@@ -20,6 +20,7 @@ from core.farming.day_1.process import process_day_1
 from core.farming.day_2.process import process_day_2
 from utils.json import load_json, update_json_value
 
+from datetime import datetime
 
 # update_profile('8d700ad49f9449988715a1008f305e93', {"title": 'testAPI'})
 
@@ -106,6 +107,14 @@ try:
     # print('get_process_path_by_port', get_process_path_by_port(58888))
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
+    
+    # Получение текущей даты и времени
+    now = datetime.now()
+
+    # Получение только текущей даты
+    current_date = now.date()
+    print('current_date', now)
+    
     print(load_json('data/accounts/google/farm/BerlyAlondra2.json'))
     update_json_value('data/accounts/google/farm/BerlyAlondra2.json', 'pinterest', True)
     driver = return_my_driver(22143, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')

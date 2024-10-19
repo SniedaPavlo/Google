@@ -7,15 +7,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
-
+from utils.json import update_json_value
 import time
 import random
 
-
-
 # ! --------news.google.com-------
 # https://news.google.com/
-def google_news_subscribe(driver):
+def google_news_subscribe(driver, file_path):
     driver.get('https://news.google.com/')
     popups = driver.find_elements(By.XPATH, "//*[@class='brSCsc' and @jsname='sCfAK']")
     
@@ -25,9 +23,11 @@ def google_news_subscribe(driver):
         #клик на подписку
         asyncClickToXpath2SecJS(driver, '//*[@id="yDmH0d"]/c-wiz[5]/div/main/c-wiz/div/div[2]/div/span/div[1]/button')
 
+    update_json_value(file_path, 'google_news_subscribe', True)
+    
 # https://www.spiegel.de/
 # ! --------spiegel-------
-def spiegel(driver):
+def spiegel(driver, file_path):
     driver.get('https://www.spiegel.de/')
     
     #! Если есть модалка - сработает. Следует принять куки
@@ -89,6 +89,7 @@ def spiegel(driver):
         asyncClickToXpath5Sec(driver, '//*[@id="submit"]')
         time.sleep(2)
         
+        
     except Exception as e:
         print('Ошибка на сайте https://www.spiegel.de/ функция "spiegel":', e)
     
@@ -128,6 +129,8 @@ def spiegel(driver):
             btns_news = driver.find_elements(By.XPATH, "//*[@class='cms-button-21 small']")
             driver.execute_script("arguments[0].click();", btns_news[i])
             
+        update_json_value(file_path, 'spiegel', True)
+        
     except:
         print('Ошибка при нажатии на кнопки newsletter')
         
@@ -136,7 +139,7 @@ def spiegel(driver):
         
 # !-------- google alerts ------
 # https://www.google.com/alerts
-def google_alerts(driver):
+def google_alerts(driver, file_path):
     
     popular_words = [
         "Sport", "Technology", "AI", "Climate Change", "Music",
@@ -170,12 +173,13 @@ def google_alerts(driver):
         # Добавляем
         asyncClickToXpath5Sec(driver, '//*[@id="create_alert"]')
         
+    update_json_value(file_path, 'google_alerts', True)
     
     
     
 #! -------cheshire---------
 # https://www.cheshire-live.co.uk/
-def cheshire(driver):
+def cheshire(driver, file_path):
     driver.get('https://www.cheshire-live.co.uk/')
     
     #Клик на модальное окно
@@ -236,12 +240,14 @@ def cheshire(driver):
     for sub in subsribes:
         sub.click()
         time.sleep(3)
+        
+    update_json_value(file_path, 'cheshire', True)
     
     
 #!-------theguardian-------
 # https://www.theguardian.com/
 
-def theguardian(driver): 
+def theguardian(driver, file_path): 
     driver.get('https://www.theguardian.com/')
     #click sing in
     asyncClickToXpath5SecJS(driver, '//*[@id="bannerandheader"]/header/section[1]/div/div/gu-island/div/div/div[2]/a')
@@ -279,6 +285,9 @@ def theguardian(driver):
             time.sleep(2)
         except:
             pass
+        
+    update_json_value(file_path, 'theguardian', True)
+    
     # РЕФАКТОРИНГ - может следует дописать код по подтверждении почты.
     print('ФУНКЦИЯ theguardian выполнена')
     
