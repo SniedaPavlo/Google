@@ -18,6 +18,14 @@ import random
 
 
 def cookies(driver, acc, acc_path):
+    
+    # reddit
+    if not acc['farm']['reddit']:
+        try:
+            reddit(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации reddit', e)
+
     # gemini
     if not acc['farm']['gemini']:
         try:
@@ -36,12 +44,6 @@ def cookies(driver, acc, acc_path):
             firebase(driver, acc_path)
         except Exception as e:
             print('Ошибка в функции cookies при регистрации firebase', e)
-    # reddit
-    if not acc['farm']['reddit']:
-        try:
-            reddit(driver, acc_path)
-        except Exception as e:
-            print('Ошибка в функции cookies при регистрации reddit', e)
 
 
 

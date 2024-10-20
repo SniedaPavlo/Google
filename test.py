@@ -118,9 +118,11 @@ try:
     # print(load_json('data/accounts/google/farm/BerlyAlondra2.json'))
     # update_json_value('data/accounts/google/farm/BerlyAlondra2.json', 'pinterest', True)
     # driver = return_my_driver(69773, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    driver = driver = open_profile_by_id('6676fde62948a3b5da3978c6', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    driver = driver = open_profile_by_id('6676fde62948a3b5da3978d6', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
-    process_day_2(driver, '', '')
+    acc_path = f'data/accounts/google/farm/BerlyAlondra2.json'
+    acc = load_json(acc_path)
+    process_day_2(driver, acc, acc_path)
     
     driver.get('https://www.youtube.com/')
     

@@ -1,28 +1,26 @@
 {
-  "info": {
-    "password": "3m1kufyykw",
-    "gmail": "BerlyAlondra2@gmail.com",
-    "start_date": "2024-10-19",
-    "id": "6713dd3aacda3f7d9bfb9e9e"
-  },
-  "farm": {
-    "canvas": true,
-    "pinterest": false,
-    "search_cookies": false,
-    "gpt": false,
-    "google_alerts": false,
-    "spiegel": false,
-    "cheshire": false,
-    "theguardian": false,
-    "google_news_subscribe": false,
-    "gemini": false,
-    "twitter": false,
-    "firebase": false,
-    "reddit": false,
-
-    "youtube_create_acc": false,
-    "youtube_subcribe_and_like": false,
-
-    "axios": false
-  }
+    "info": {
+        "password": "3m1kufyykw",
+        "gmail": "BerlyAlondra2@gmail.com",
+        "start_date": "2024-10-19",
+        "id": "6713dd3aacda3f7d9bfb9e9e"
+    },
+    "farm": {
+        "canvas": true,
+        "pinterest": false,
+        "search_cookies": false,
+        "gpt": false,
+        "google_alerts": false,
+        "spiegel": false,
+        "cheshire": false,
+        "theguardian": false,
+        "google_news_subscribe": false,
+        "gemini": false,
+        "twitter": false,
+        "firebase": false,
+        "reddit": true,
+        "youtube_create_acc": false,
+        "youtube_subcribe_and_like": false,
+        "axios": false
+    }
 }
