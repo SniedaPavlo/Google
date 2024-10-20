@@ -28,7 +28,7 @@ def process_day_1(driver, acc, acc_path):
         spiegel(driver, acc_path)
     except Exception as e:
         print('Ошибка в функции process_day_1 при spiegel', e)
-    # 
+
     try:
         cheshire(driver, acc_path)
     except Exception as e:

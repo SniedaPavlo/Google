@@ -93,7 +93,6 @@ def search_and_click_to_site_and_scroll(driver, search, url_consider):
     url_consider = текст, который сравнимваем если содержит href сайта - переходим по нему.
     
     '''
-    
     try:
         driver.get(f'https://www.google.com/search?q={search}')
         

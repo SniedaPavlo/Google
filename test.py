@@ -108,19 +108,21 @@ try:
     # print('get_process_by_name', get_process_by_name('Octium'))
     # get_ports_by_pid(get_process_by_name('Octium')['pid'])
     
-    # Получение текущей даты и времени
-    now = datetime.now()
+    # # Получение текущей даты и времени
+    # now = datetime.now()
 
-    # Получение только текущей даты
-    current_date = now.date()
-    print('current_date', now)
+    # # Получение только текущей даты
+    # current_date = now.date()
+    # print('current_date', now)
     
-    print(load_json('data/accounts/google/farm/BerlyAlondra2.json'))
-    update_json_value('data/accounts/google/farm/BerlyAlondra2.json', 'pinterest', True)
-    driver = return_my_driver(22143, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    # driver = driver = open_profile_by_id('66fb0d1928bc77dfa3166e98', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    # print(load_json('data/accounts/google/farm/BerlyAlondra2.json'))
+    # update_json_value('data/accounts/google/farm/BerlyAlondra2.json', 'pinterest', True)
+    # driver = return_my_driver(69773, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
+    driver = driver = open_profile_by_id('6676fde62948a3b5da3978c6', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
     driver.implicitly_wait(10)
-    process_day_2(driver)
+    process_day_2(driver, '', '')
+    
+    driver.get('https://www.youtube.com/')
     
     
     # print('driver', driver)

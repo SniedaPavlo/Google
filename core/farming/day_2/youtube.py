@@ -9,12 +9,13 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, switch_to_window_url, asyncClickToXpath2SecJS, asyncClickToXpath2Sec
+from utils.json import update_json_value
 
 import time
 import random
 
 
-def youtube_subcribe_and_like(driver):
+def youtube_create_acc(driver, acc, acc_path):
     driver.get('https://www.youtube.com/')
     
     #! Если первый раз входим - чекаем залошинен ли аккаунт
@@ -28,7 +29,7 @@ def youtube_subcribe_and_like(driver):
         
         input_password = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
         #ПАРОЛЬ
-        input_password.send_keys('Pppp4444')
+        input_password.send_keys(acc['info']['password'])
         #next btn click
         asyncClickToXpath2Sec(driver, '//*[@id="passwordNext"]/div/button')
         
@@ -48,50 +49,20 @@ def youtube_subcribe_and_like(driver):
         asyncClickToXpath5Sec(driver, '//*[@id="manage-account"]/a')
         #клик на подтверждение создания канала
         asyncClickToXpath5Sec(driver, '//*[@id="create-channel-button"]/yt-button-shape/button')
+        
+        update_json_value(acc_path, 'youtube_create_acc', True)
     except Exception as e:
-        print('Ошибка во время создания канала функция "youtube_subcribe_and_like":', e)
+        print('Ошибка во время создания канала функция "youtube_create_acc":', e)
         
         time.sleep(5)
         
-    #! Накрутка сабов, лайков и коментов
-    try:
-        #РЕФАКТОРИНГ линки с базы брать
-        links = [
-            'https://www.youtube.com/watch?v=KOgvA98FifU',
-            'https://www.youtube.com/watch?v=wCtvDerllj0', 
-        ]
-        comments = [
-            'nice', 'good!', 'very nice!'
-        ]
-        
-        for link in links:
-            driver.get(link)
-            # Создаем цепочку действий
-            actions = ActionChains(driver)
-            # Нажимаем пробел для паузы
-            actions.send_keys(Keys.SPACE)
-            # Выполняем действие
-            actions.perform()
-            #клик на саб
-            asyncClickToXpath5SecJS(driver, '//*[@id="subscribe-button-shape"]/button/yt-touch-feedback-shape/div/div[2]')
-            #like click
-            asyncClickToXpath2SecJS(driver, '//*[@title="I like this"]')
-            # ПОКАЧТО КОМЕНТОВ НЕ БУДЕТ, ТАМ ТЯЖЕЛО ПИСАТЬ. РАЗВЕ ЧТО ФОКУС ПОЗЖЕ СДЕЛАТЬ И НА ВЫШЕ УРОВНЕ ПЕЧАТАТЬ КАК ВЫШЕ ПРОБЕЛ.
-            # random_comment = random.choice(comments)
-            # actions = ActionChains(driver)
-            # for char in random_comment:
-            #     actions.send_keys(char)
-            # actions.send_keys(Keys.RETURN)
-            # actions.perform()
-            
-        driver.get('https://mail.google.com/mail/')
     except Exception as e:
-        print('Ошибка во время накрутки сабов, лайков и комент "youtube_subcribe_and_like":', e)
+        print('Ошибка во время накрутки сабов, лайков и комент "youtube_create_acc":', e)
         
         
         
         
-def youtube_subcribe_and_like_without_auth(driver):
+def youtube_subcribe_and_like(driver, acc_path):
     #! Накрутка сабов, лайков и коментов
     try:
         #РЕФАКТОРИНГ линки с базы брать
@@ -123,6 +94,8 @@ def youtube_subcribe_and_like_without_auth(driver):
             # actions.send_keys(Keys.RETURN)
             # actions.perform()
         driver.get('https://mail.google.com/mail/')
+        
+        update_json_value(acc_path, 'youtube_subcribe_and_like', True)
     except Exception as e:
         print('Ошибка во время накрутки сабов, лайков и комент "youtube_subcribe_and_like":', e)
         

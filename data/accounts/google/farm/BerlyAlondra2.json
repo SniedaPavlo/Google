@@ -14,6 +14,15 @@
     "spiegel": false,
     "cheshire": false,
     "theguardian": false,
-    "google_news_subscribe": false
+    "google_news_subscribe": false,
+    "gemini": false,
+    "twitter": false,
+    "firebase": false,
+    "reddit": false,
+
+    "youtube_create_acc": false,
+    "youtube_subcribe_and_like": false,
+
+    "axios": false
   }
 }

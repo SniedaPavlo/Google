@@ -10,14 +10,50 @@ from selenium.webdriver.support.ui import Select
 
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
 from utils.google import auth_google_current_window, auth_google, search_and_click_to_site
+from utils.google import search_and_click_to_site, search_and_click_to_site_and_scroll
+from utils.json import update_json_value
 
 import time
 import random
 
 
+def cookies(driver, acc, acc_path):
+    # gemini
+    if not acc['farm']['gemini']:
+        try:
+            gemini(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации gemini', e)
+    # twitter
+    if not acc['farm']['twitter']:
+        try:
+            twitter(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации twitter', e)
+    # firebase
+    if not acc['farm']['firebase']:
+        try:
+            firebase(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации firebase', e)
+    # reddit
+    if not acc['farm']['reddit']:
+        try:
+            reddit(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации reddit', e)
+
+
+
+
+
+
+
+
+
 # https://gemini.google.com/
 # !------------gemini------------
-def gemini(driver):
+def gemini(driver, acc_path):
     driver.get('https://gemini.google.com/')
     
     #click sing in
@@ -26,6 +62,8 @@ def gemini(driver):
     auth_google_current_window(driver, 'Default4444')
     
     time.sleep(10)
+    
+    
     
     # РЕФАКТОРИНГ не работает. Палит фродка и все. Немогу зайти
     
@@ -40,12 +78,14 @@ def gemini(driver):
     # editable_div = driver.find_element(By.XPATH, '//*[@class="ql-editor textarea ql-blank"]')
     # # Отправляем текст в элемент
     # editable_div.send_keys("What to name a dog")
+    
+    # update_json_value(acc_path, 'gemini', True)
         
     
 # РЕФАКТОРИНГ следует доделать
 # !------------twitter------------
 # https://x.com/
-def twitter(driver):
+def twitter(driver, acc_path):
     driver.get('https://x.com/')
     
     # Привем кук
@@ -55,6 +95,8 @@ def twitter(driver):
     asyncClickToXpath5Sec(driver, "//*[name()='iframe']")
     
     auth_google(driver, 'Default4444')
+    
+    update_json_value(acc_path, 'gemini', True)
     
     select_month = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_1_LABEL']")
     select = Select(select_month)
@@ -111,7 +153,7 @@ def twitter(driver):
     
 #! -----------firebase-----------
 # https://console.firebase.google.com/
-def firebase(driver):
+def firebase(driver, acc_path):
     search_and_click_to_site(driver, 'firebase+google', 'firebase.google.com')
     
     # click get started 
@@ -144,10 +186,33 @@ def firebase(driver):
     # click continue
     asyncClickToXpath5Sec(driver, '//*[@id="cdk-overlay-2"]/fire-full-screen-modal/mat-sidenav-container/mat-sidenav/div/c5e-create-project-dialog/fire-full-screen-modal-container/fire-full-screen-modal-content/submit-page/create-project-content/div/div/button')
     
+    update_json_value(acc_path, 'firebase', True)
+    
     # ДАЛЬЕШЕ РЕГ ВНУТРИШНЕГО СЕРВИСА
     
     # РЕФАКТОРИНГ - можно еще дописать регистарацию внутришних сервисов
     
     
+#! -----------reddit-----------
+# https://www.reddit.com/
+def reddit(driver, acc_path):
+    search_and_click_to_site(driver, 'reddit', 'reddit.com')
+    # click btn burger 
+    asyncClickToXpath5Sec(driver, '//*[@id="expand-user-drawer-button"]')
+    # click log in 
+    asyncClickToXpath5Sec(driver, '//*[@id="login-list-item"]/a')
+    # клик на продолжение через гугл, чтобы войти в него
+    asyncClickToXpath5Sec(driver, "//*[@allow='identity-credentials-get']")
+    # логин через гугл 
+    auth_google(driver, 'Default4444')
     
-   
+    update_json_value(acc_path, 'reddit', True)
+    
+    
+    
+    
+    
+    
+    
+    
+    
