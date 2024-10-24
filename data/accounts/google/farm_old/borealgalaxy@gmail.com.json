@@ -1,0 +1,26 @@
+{
+  "info": {
+    "password": "Default4444",
+    "gmail": "borealgalaxy@gmail.com",
+    "start_date": "2024-10-24",
+    "id": "93f5186a2e5941d5946d08a5ccce4066"
+  },
+  "farm": {
+    "canvas": false,
+    "pinterest": false,
+    "search_cookies": false,
+    "gpt": false,
+    "google_alerts": false,
+    "spiegel": false,
+    "cheshire": false,
+    "theguardian": false,
+    "google_news_subscribe": false,
+    "gemini": false,
+    "twitter": false,
+    "firebase": false,
+    "reddit": false,
+    "youtube_create_acc": false,
+    "youtube_subcribe_and_like": false,
+    "axios": false
+  }
+}

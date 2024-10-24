@@ -26,5 +26,5 @@ def get_profiles(**kwargs):
         print('Error in function "get_profiles" :', e)
         
 #exapmle 
-# result = get_profiles(api_token='your_token', search='profile_title', search_tags='tag1,tag2', status=1, password=True)
+# result = get_profiles(search='profile_title', search_tags='tag1,tag2', status=1, password=True)
 

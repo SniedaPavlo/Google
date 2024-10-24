@@ -1,9 +1,9 @@
-# from logo_api.LocalRestAPI.open_profile_by_id import  open_profile_by_id
-# from logo_api.LocalRestAPI.stop_profile_by_id import stop_profile_by_id
+from logo_api.LocalRestAPI.open_profile_by_id import  open_profile_by_id
+from logo_api.LocalRestAPI.stop_profile_by_id import stop_profile_by_id
 
-from octo_api.profiles.get_profiles import get_profiles
-from octo_api.local_client_api.open_profile import open_profile_by_id
-from octo_api.local_client_api.stop_profile import stop_profile
+# from octo_api.profiles.get_profiles import get_profiles
+# from octo_api.local_client_api.open_profile import open_profile_by_id
+# from octo_api.local_client_api.stop_profile import stop_profile
 
 from core.farming.day_1.process import process_day_1
 from core.farming.day_2.process import process_day_2
@@ -38,16 +38,16 @@ def worker(acc_path):
         
         driver_data = open_profile_by_id(acc['info']['id'], 'octo_api/chromedriver/chromedriver-129')
         if days_difference < 1:
-            process_day_1(driver_data, acc, acc_path)
+            process_day_1(driver_data['driver'], acc, acc_path)
         if days_difference < 2:
-            process_day_2(driver_data, acc, acc_path)
+            process_day_2(driver_data['driver'], acc, acc_path)
     
         print('days_difference', days_difference)
         
     except Exception as e:
         print('Error', e)
         
-def create_threads(accs, max_workers=1):
+def create_threads(accs, max_workers=2):
     """
     Создает и запускает потоки для каждого элемента в списке.
 
@@ -62,5 +62,4 @@ if __name__ == "__main__":
     # Пример списка с несколькими элементами
     
     accs = list_files_in_directory('data/accounts/google/farm')
-    print('accs', accs)
-    create_threads(accs, max_workers=1)
+    create_threads(accs, max_workers=2)

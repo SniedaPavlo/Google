@@ -246,7 +246,6 @@ def cheshire(driver, file_path):
     
 #!-------theguardian-------
 # https://www.theguardian.com/
-
 def theguardian(driver, file_path): 
     driver.get('https://www.theguardian.com/')
     #click sing in

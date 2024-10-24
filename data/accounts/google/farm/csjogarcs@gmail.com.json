@@ -1,13 +1,13 @@
 {
     "info": {
-        "password": "3m1kufyykw",
-        "gmail": "BerlyAlondra2@gmail.com",
-        "start_date": "2024-10-19",
-        "id": "6713dd3aacda3f7d9bfb9e9e"
+        "password": "Default4444",
+        "gmail": "csjogarcs@gmail.com",
+        "start_date": "2024-10-24",
+        "id": "b63ffcd8f6d04346bed72014f0bfdadb"
     },
     "farm": {
-        "canvas": true,
-        "pinterest": false,
+        "canvas": false,
+        "pinterest": true,
         "search_cookies": false,
         "gpt": false,
         "google_alerts": false,
@@ -18,7 +18,7 @@
         "gemini": false,
         "twitter": false,
         "firebase": false,
-        "reddit": true,
+        "reddit": false,
         "youtube_create_acc": false,
         "youtube_subcribe_and_like": false,
         "axios": false

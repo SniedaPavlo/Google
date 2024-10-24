@@ -258,6 +258,7 @@
 //
 
 // !      https://www.theguardian.com/email-newsletters
+
 const xpath = '//*[@class="dcr-1pj4jor"]';
 const result = document.evaluate(
   xpath,
@@ -278,6 +279,63 @@ function clickButton() {
 }
 
 clickButton();
+
+//
+//
+//
+//
+//
+//
+//
+//
+
+// !  https://www.axios.com/newsletters
+
+const xpath_btn =
+  "//*[@class='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer gtmClick']";
+const result_btn = document.evaluate(
+  xpath_btn,
+  document,
+  null,
+  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+  null
+);
+
+let l = 0;
+function clickButton() {
+  if (l < result.snapshotLength) {
+    const button = result.snapshotItem(i);
+    button.click();
+    i++;
+    setTimeout(clickButton, 1000);
+  }
+}
+
+clickButton();
+
+// ! https://www.nytimes.com/newsletters
+
+// const xpath_btn = "//*[@class='css-1xeplzy']";
+// const result_btn = document.evaluate(
+//   xpath_btn, // Используем xpath_btn вместо xpath
+//   document,
+//   null,
+//   XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+//   null
+// );
+
+// let l = 0;
+// function clickButton() {
+//   if (l < result_btn.snapshotLength) {
+//     // Используем result_btn вместо result
+//     const button = result_btn.snapshotItem(l); // Используем l вместо i
+//     button.click();
+//     l++; // Увеличиваем l вместо i
+//     setTimeout(clickButton, 10); // Пауза 1 секунда перед следующим нажатием
+//   }
+// }
+
+// clickButton();
 
 // !        https://www.cheshire-live.co.uk/account/?pq=news&tab=my-newsletters
 

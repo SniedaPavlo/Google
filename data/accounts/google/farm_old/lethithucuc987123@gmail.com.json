@@ -1,0 +1,26 @@
+{
+  "info": {
+    "password": "Default4444",
+    "gmail": "lethithucuc987123@gmail.com",
+    "start_date": "2024-10-24",
+    "id": "a5beecd9962244b98d8b93fb78a022fb"
+  },
+  "farm": {
+    "canvas": false,
+    "pinterest": false,
+    "search_cookies": false,
+    "gpt": false,
+    "google_alerts": false,
+    "spiegel": false,
+    "cheshire": false,
+    "theguardian": false,
+    "google_news_subscribe": false,
+    "gemini": false,
+    "twitter": false,
+    "firebase": false,
+    "reddit": false,
+    "youtube_create_acc": false,
+    "youtube_subcribe_and_like": false,
+    "axios": false
+  }
+}

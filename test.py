@@ -2,7 +2,7 @@ from octo_api.profiles.get_profiles import get_profiles
 from octo_api.profiles.create_profile import create_profiles
 from octo_api.local_client_api.login import login_octo
 from octo_api.local_client_api.logout import logout_octo
-# from octo_api.local_client_api.open_profile import open_profile_by_id
+from octo_api.local_client_api.open_profile import open_profile_by_id
 from octo_api.local_client_api.stop_profile import stop_profile
 from octo_api.tags.get_tags import get_tags
 from octo_api.tags.update_tag import update_tag
@@ -11,7 +11,7 @@ from octo_api.tags.delete_tag import delete_tag
 from octo_api.profiles.update_profile import update_profile
 from octo_api.profiles.delete_profiles import delete_profiles
 
-from logo_api.LocalRestAPI.open_profile_by_id import  open_profile_by_id
+# from logo_api.LocalRestAPI.open_profile_by_id import  open_profile_by_id
 from logo_api.LocalRestAPI.stop_profile_by_id import stop_profile_by_id
 from logo_api.my_driver import return_my_driver
 
@@ -117,14 +117,24 @@ try:
     
     # print(load_json('data/accounts/google/farm/BerlyAlondra2.json'))
     # update_json_value('data/accounts/google/farm/BerlyAlondra2.json', 'pinterest', True)
+    # !
     # driver = return_my_driver(69773, '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')
-    driver = driver = open_profile_by_id('6676fde62948a3b5da3978d6', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
-    driver.implicitly_wait(10)
-    acc_path = f'data/accounts/google/farm/BerlyAlondra2.json'
-    acc = load_json(acc_path)
-    process_day_2(driver, acc, acc_path)
+    # driver = driver = open_profile_by_id('6676fde62948a3b5da3978d6', '/Users/mac/Desktop/desktop/scanner/chromedriver/chromedriver-127')['driver']
+    # driver.implicitly_wait(10)
+    # acc_path = f'data/accounts/google/farm/BerlyAlondra2.json'
+    # acc = load_json(acc_path)
+    # process_day_2(driver, acc, acc_path)
     
-    driver.get('https://www.youtube.com/')
+    # driver.get('https://www.youtube.com/')
+    
+    result = get_profiles(search_tags='Scrooge')
+    print(result['data'])
+
+    # driver = open_profile_by_id('73adffce25c34505812bb9a9ffe1eb09')
+    
+    # driver.get('https://www.youtube.com/')
+
+    
     
     
     # print('driver', driver)
