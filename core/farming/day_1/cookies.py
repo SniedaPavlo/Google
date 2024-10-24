@@ -23,12 +23,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 def cookies(driver, acc, acc_path):
     '''Нагуливаем куки на гигантах'''
-    # canvas
-    # if not acc['farm']['canvas']:
-    #     try:
-    #         canvas(driver, acc_path)
-    #     except Exception as e:
-    #         print('Ошибка в функции cookies при регистрации canvas', e)
+    # canva
+    if not acc['farm']['canva']:
+        try:
+            canvas(driver, acc_path)
+        except Exception as e:
+            print('Ошибка в функции cookies при регистрации canva', e)
     # pinterest
     if not acc['farm']['pinterest']:
         try:
@@ -45,45 +45,59 @@ def cookies(driver, acc, acc_path):
         except Exception as e:
             print('Ошибка при нагуле кук 1 день')
     # gpt
-    if not acc['farm']['gpt']:
-        try:
-            gpt(driver, acc_path)
-        except Exception as e:
-            print('Ошибка в функции cookies при регистрации gpt', e)
+    # if not acc['farm']['gpt']:
+    #     try:
+    #         gpt(driver, acc_path)
+    #     except Exception as e:
+    #         print('Ошибка в функции cookies при регистрации gpt', e)
             
+    print('')
     
 def canvas(driver, acc_path):
+    try:
+        search_and_click_to_site(driver, 'canva', 'canva.com')
+        
+        # driver.get('https://www.canva.com/')
+        
+        time.sleep(5)
+        #прием кук
+        asyncClickToXpath5SecJS(driver, '/html/body/div[2]/div/div/div/div/div[2]/button[1]')
+        #клик sing in 
+        asyncClickToXpath5SecJS(driver, '//*[@id="root"]/div/div[3]/div/div[2]/div/header/div[6]/button[2]')
+        #клик google
+        asyncClickToXpath5SecJS(driver, '/html/body/div[2]/div[1]/div/div/div/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div[2]/button[1]')
+        
+        auth_google(driver, 'Default4444',acc_path, 'canvas')
+        
+        # update_json_value(acc_path, 'canvas', True)
+    except Exception as e:
+        print('Ошибка во время логирования canva:', e)
+    finally:
+        google_update_key(driver, acc_path, 'canva', 'Canva')
+        
     
-    search_and_click_to_site(driver, 'canvas', 'www.canva.com')
-    
-    # driver.get('https://www.canva.com/')
-    
-    time.sleep(5)
-    #прием кук
-    asyncClickToXpath5SecJS(driver, '/html/body/div[2]/div/div/div/div/div[2]/button[1]')
-    #клик sing in 
-    asyncClickToXpath5SecJS(driver, '//*[@id="root"]/div/div[3]/div/div[2]/div/header/div[6]/button[2]')
-    #клик google
-    asyncClickToXpath5SecJS(driver, '/html/body/div[2]/div[1]/div/div/div/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div[2]/button[1]')
-    
-    auth_google(driver, 'Default4444',acc_path, 'canvas')
-    
-    # update_json_value(acc_path, 'canvas', True)
-    
-    
-    #ТЕСТ
+    #ТЕСТ / РЕФАКТОРИНГ - он вообще не работает что-то
 def gpt(driver, acc_path):
     
-    search_and_click_to_site(driver, 'chatgpt', 'chatgpt.com')
+    try:
+        search_and_click_to_site(driver, 'chatgpt', 'chatgpt.com')
+        
+        # driver.get('https://chatgpt.com/')
+        
+        # click sing in
+        asyncClickToXpath5SecJS(driver, '/html/body/div[1]/div/main/div[1]/div[1]/div/div[1]/div/div[3]/div/button[2]')
+        #  click google
+        asyncClickToXpath5SecJS(driver, '/html/body/div/main/section/div[2]/div[3]/button[1]')
+        
+        auth_google_current_window(driver, 'Default4444')
+        
+        # time.sleep(500)
+        
+    except Exception as e:
+        print('Ошибка при регистрации gpt:', e)
+    finally:
+        google_update_key(driver, acc_path, 'gpt', 'OpenAI')
     
-    # driver.get('https://chatgpt.com/')
-    
-    # click sing in
-    asyncClickToXpath5SecJS(driver, '/html/body/div[1]/div/main/div[1]/div[1]/div/div[1]/div/div[3]/div/button[2]')
-    #  click google
-    asyncClickToXpath5SecJS(driver, '/html/body/div/main/section/div[2]/div[3]/button[1]')
-    
-    auth_google_current_window(driver, 'Default4444', acc_path, 'gpt')
     
     # update_json_value(acc_path, 'gpt', True)
     
@@ -119,7 +133,7 @@ def pinterest(driver, acc_path):
         asyncClickToXpath5Sec(driver, '//*[@id="__PWS_ROOT__"]/div/div[1]/div[2]/div/div/div/div/div/div/div/div[6]/button')
     except Exception as e:
         print('Ошибка во время регитстрации pinterest', e)
-        
+    # РЕФАКТОРИНГ до кода ниже не дохидит
     try:
         asyncClickToXpath5Sec(driver, '/html/body/div[4]/div/div/div/div[2]/div/div/div/div[2]/div/div[2]/button')
         
@@ -145,5 +159,7 @@ def pinterest(driver, acc_path):
         pass
     finally:
         google_update_key(driver, acc_path, 'pinterest', 'Pinterest')
+
+        
     
     

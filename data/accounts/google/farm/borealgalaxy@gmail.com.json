@@ -1,21 +1,21 @@
 {
     "info": {
         "password": "Default4444",
-        "gmail": "csjogarcs@gmail.com",
+        "gmail": "borealgalaxy@gmail.com",
         "start_date": "2024-10-24",
-        "id": "b63ffcd8f6d04346bed72014f0bfdadb"
+        "id": "93f5186a2e5941d5946d08a5ccce4066"
     },
     "farm": {
-        "canvas": false,
+        "canva": false,
         "pinterest": true,
         "search_cookies": false,
         "gpt": false,
         "google_alerts": false,
         "spiegel": false,
-        "cheshire": false,
+        "cheshire": true,
         "theguardian": false,
-        "google_news_subscribe": false,
-        "gemini": false,
+        "google_news_subscribe": true,
+        "gemini": true,
         "twitter": false,
         "firebase": false,
         "reddit": false,

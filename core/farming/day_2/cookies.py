@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
-from utils.google import auth_google_current_window, auth_google, search_and_click_to_site
+from utils.google import auth_google_current_window, auth_google, search_and_click_to_site, google_update_key
 from utils.google import search_and_click_to_site, search_and_click_to_site_and_scroll
 from utils.json import update_json_value
 
@@ -19,25 +19,27 @@ import random
 
 def cookies(driver, acc, acc_path):
     
-    # reddit
-    if not acc['farm']['reddit']:
-        try:
-            reddit(driver, acc_path)
-        except Exception as e:
-            print('Ошибка в функции cookies при регистрации reddit', e)
+    # # reddit
+    # if not acc['farm']['reddit']:
+    #     try:
+    #         reddit(driver, acc_path)
+    #     except Exception as e:
+    #         print('Ошибка в функции cookies при регистрации reddit', e)
 
-    # gemini
-    if not acc['farm']['gemini']:
-        try:
-            gemini(driver, acc_path)
-        except Exception as e:
-            print('Ошибка в функции cookies при регистрации gemini', e)
+    # # gemini
+    # if not acc['farm']['gemini']:
+    #     try:
+    #         gemini(driver, acc_path)
+    #     except Exception as e:
+    #         print('Ошибка в функции cookies при регистрации gemini', e)
+            
     # twitter
     if not acc['farm']['twitter']:
         try:
             twitter(driver, acc_path)
         except Exception as e:
             print('Ошибка в функции cookies при регистрации twitter', e)
+            
     # firebase
     if not acc['farm']['firebase']:
         try:
@@ -83,75 +85,83 @@ def gemini(driver, acc_path):
     
     # update_json_value(acc_path, 'gemini', True)
         
-    
+
 # РЕФАКТОРИНГ следует доделать
 # !------------twitter------------
 # https://x.com/
 def twitter(driver, acc_path):
-    driver.get('https://x.com/')
-    
-    # Привем кук
-    asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div/div[1]/div/div/div/div[2]/button[1]')
-    
-    # Клик на гугл
-    asyncClickToXpath5Sec(driver, "//*[name()='iframe']")
-    
-    auth_google(driver, 'Default4444')
-    
-    update_json_value(acc_path, 'gemini', True)
-    
-    select_month = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_1_LABEL']")
-    select = Select(select_month)
-    options = select.options
-    print('options', options)
-    random_option = random.choice(options)
-    # Выполняем клик на случайной опции
-    select.select_by_visible_text(random_option.text)
-    
-    select_day = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_2_LABEL']")
-    select = Select(select_day)
-    options = select.options
-    print('options', options)
-    random_option = random.choice(options)
-    # Выполняем клик на случайной опции
-    select.select_by_visible_text(random_option.text)
-    
-    select_day = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_3_LABEL']")
-    select = Select(select_day)
-    options = select.options
-    print('options', options)
-    random_option = random.choice(options)
-    # Выполняем клик на случайной опции
-    select.select_by_visible_text('1999')
-    
-    # click sing in 
-    asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
-    time.sleep(5)
-    
-    # РЕФАКТИНГ вход в гугл выше сделан. Но не регает аккаунт до конца
-    # # skip for now
-    # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
-    # # 
-    # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div/div/div[2]/div[2]/button[2]')
-    
-    # btns_sub = driver.find_elements(driver, "//*[@class='css-175oi2r r-1q9bdsx r-t60dpp r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l']")
-    
-    # for i in range(6):
-    #     driver.execute_script('arguments[0].click();', btns_sub[i])
+    try:
+        driver.get('https://x.com/')
         
-    # # click next
-    # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/button')
-    # # click next
-    # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/button')
-    
-    
-    # btns_follow = driver.find_elements(By.XPATH, "//*[@class='css-175oi2r r-sdzlij r-1phboty r-rs99b7 r-lrvibr r-15ysp7h r-4wgw6l r-3pj75a r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l']")
-    
-    # for i in range(6):
-    #     driver.execute_script('arguments[0].click();', btns_follow[i])
-    
-    # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
-    
+        # Привем кук
+        asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div/div[1]/div/div/div/div[2]/button[1]')
+        
+        # Клик на гугл
+        asyncClickToXpath5Sec(driver, "//*[name()='iframe']")
+        
+        auth_google(driver, 'Default4444')
+        
+        update_json_value(acc_path, 'gemini', True)
+        
+        select_month = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_1_LABEL']")
+        select = Select(select_month)
+        options = select.options
+        print('options', options)
+        random_option = random.choice(options)
+        # Выполняем клик на случайной опции
+        select.select_by_visible_text(random_option.text)
+        
+        
+        
+        select_day = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_2_LABEL']")
+        select = Select(select_day)
+        options = select.options
+        print('options', options)
+        random_option = random.choice(options)
+        # Выполняем клик на случайной опции
+        select.select_by_visible_text(random_option.text)
+        
+        select_day = driver.find_element(By.XPATH, "//select[@aria-labelledby='SELECTOR_3_LABEL']")
+        select = Select(select_day)
+        options = select.options
+        print('options', options)
+        random_option = random.choice(options)
+        # Выполняем клик на случайной опции
+        select.select_by_visible_text('1999')
+        
+        
+        
+        # click sing in 
+        asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
+        time.sleep(5)
+        
+        # РЕФАКТИНГ вход в гугл выше сделан. Но не регает аккаунт до конца
+        # # skip for now
+        # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
+        # # 
+        # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div/div/div[2]/div[2]/button[2]')
+        
+        # btns_sub = driver.find_elements(driver, "//*[@class='css-175oi2r r-1q9bdsx r-t60dpp r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l']")
+        
+        # for i in range(6):
+        #     driver.execute_script('arguments[0].click();', btns_sub[i])
+            
+        # # click next
+        # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/button')
+        # # click next
+        # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/button')
+        
+        
+        # btns_follow = driver.find_elements(By.XPATH, "//*[@class='css-175oi2r r-sdzlij r-1phboty r-rs99b7 r-lrvibr r-15ysp7h r-4wgw6l r-3pj75a r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l']")
+        
+        # for i in range(6):
+        #     driver.execute_script('arguments[0].click();', btns_follow[i])
+        
+        # asyncClickToXpath5Sec(driver, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button')
+    except Exception as e:
+        print('Ошибка при твитере:', e)
+    finally:
+        google_update_key(driver, acc_path, 'twitter', 'X')
     
 #! -----------firebase-----------
 # https://console.firebase.google.com/
@@ -190,6 +200,7 @@ def firebase(driver, acc_path):
     
     update_json_value(acc_path, 'firebase', True)
     
+
     # ДАЛЬЕШЕ РЕГ ВНУТРИШНЕГО СЕРВИСА
     
     # РЕФАКТОРИНГ - можно еще дописать регистарацию внутришних сервисов
@@ -197,18 +208,26 @@ def firebase(driver, acc_path):
     
 #! -----------reddit-----------
 # https://www.reddit.com/
+# РЕФАКТОРИНГ - не работает auth_google в этом reddit
 def reddit(driver, acc_path):
-    search_and_click_to_site(driver, 'reddit', 'reddit.com')
-    # click btn burger 
-    asyncClickToXpath5Sec(driver, '//*[@id="expand-user-drawer-button"]')
-    # click log in 
-    asyncClickToXpath5Sec(driver, '//*[@id="login-list-item"]/a')
-    # клик на продолжение через гугл, чтобы войти в него
-    asyncClickToXpath5Sec(driver, "//*[@allow='identity-credentials-get']")
-    # логин через гугл 
-    auth_google(driver, 'Default4444')
+    try:
+        search_and_click_to_site(driver, 'reddit', 'reddit.com')
+        # click btn burger 
+        asyncClickToXpath5Sec(driver, '//*[@id="expand-user-drawer-button"]')
+        # click log in 
+        asyncClickToXpath5Sec(driver, '//*[@id="login-button"]')
+        time.sleep(4)
+        # клик на продолжение через гугл, чтобы войти в него
+        asyncClickToXpath5Sec(driver, "//*[@class='S9gUrf-YoZ4jf']//iframe")
+        
+        # логин через гугл 
+        auth_google(driver, 'Default4444')
+    except Exception as e:
+        print('Ошибка при логине reddit:', e)
+    finally:
+        google_update_key(driver, acc_path, 'reddit', 'Reddit')
     
-    update_json_value(acc_path, 'reddit', True)
+    
     
     
     

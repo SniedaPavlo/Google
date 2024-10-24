@@ -5,11 +5,12 @@
     "start_date": "2024-10-24",
     "id": "b0dac94a07554a1593f6e44906c5f922"
   },
+
   "farm": {
     "canvas": false,
     "pinterest": true,
     "search_cookies": false,
-    "gpt": false,
+    "gpt": true,
     "google_alerts": false,
     "spiegel": false,
     "cheshire": false,

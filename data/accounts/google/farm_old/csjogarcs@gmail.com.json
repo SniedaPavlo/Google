@@ -1,15 +1,15 @@
 {
   "info": {
     "password": "Default4444",
-    "gmail": "borealgalaxy@gmail.com",
+    "gmail": "csjogarcs@gmail.com",
     "start_date": "2024-10-24",
-    "id": "93f5186a2e5941d5946d08a5ccce4066"
+    "id": "b63ffcd8f6d04346bed72014f0bfdadb"
   },
   "farm": {
     "canvas": false,
-    "pinterest": false,
+    "pinterest": true,
     "search_cookies": false,
-    "gpt": false,
+    "gpt": true,
     "google_alerts": false,
     "spiegel": false,
     "cheshire": false,

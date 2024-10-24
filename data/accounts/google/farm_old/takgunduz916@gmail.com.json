@@ -9,7 +9,7 @@
     "canvas": false,
     "pinterest": true,
     "search_cookies": false,
-    "gpt": false,
+    "gpt": true,
     "google_alerts": false,
     "spiegel": false,
     "cheshire": false,

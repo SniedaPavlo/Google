@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-
+from utils.google import auth_google_current_window
 from utils.driver import asyncClickToXpath5Sec, asyncClickToXpath5SecJS, asyncClickToXpath2SecJS,  switch_to_window_url
 from utils.json import update_json_value
 import time
@@ -87,7 +87,7 @@ def spiegel(driver, file_path):
         
         #клик на некст
         asyncClickToXpath5Sec(driver, '//*[@id="submit"]')
-        time.sleep(2)
+        time.sleep(10)
         
         
     except Exception as e:
@@ -97,7 +97,7 @@ def spiegel(driver, file_path):
     #! Подтверждение почты 
     try:
         driver.get('https://mail.google.com/mail/')
-        time.sleep(8)
+        time.sleep(15)
         
         mail_box = driver.find_element(By.XPATH, "//*[text()='DER SPIEGEL']/../../../..")
         mail_box.click()
@@ -122,12 +122,13 @@ def spiegel(driver, file_path):
         driver.execute_script("arguments[0].click();", btns_news[0])
         
         for i in range(count):
-            
+            time.sleep(2)
             driver.get('https://www.spiegel.de/newsletter')
             iframe = driver.find_element(By.XPATH, '//*[@id="Inhalt"]/div[3]/div/div[1]/iframe')
             driver.switch_to.frame(iframe)
             btns_news = driver.find_elements(By.XPATH, "//*[@class='cms-button-21 small']")
             driver.execute_script("arguments[0].click();", btns_news[i])
+            time.sleep(2)
             
         update_json_value(file_path, 'spiegel', True)
         
@@ -181,6 +182,9 @@ def google_alerts(driver, file_path):
 # https://www.cheshire-live.co.uk/
 def cheshire(driver, file_path):
     driver.get('https://www.cheshire-live.co.uk/')
+    
+    # Прием кук 
+    asyncClickToXpath5SecJS(driver, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')
     
     #Клик на модальное окно
     try:
@@ -248,6 +252,18 @@ def cheshire(driver, file_path):
 # https://www.theguardian.com/
 def theguardian(driver, file_path): 
     driver.get('https://www.theguardian.com/')
+    
+    try:
+        iframe = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="sp_message_iframe_1191333"]'))
+        )
+        driver.switch_to.frame(iframe)
+        # прием кук 
+        asyncClickToXpath5Sec(driver, '//*[@id="notice"]/div[3]/div/div/button[1]')
+        driver.switch_to.default_content()
+
+    except Exception as e:
+        print('Ошибка при приеме кук theguardian:', e)
     #click sing in
     asyncClickToXpath5SecJS(driver, '//*[@id="bannerandheader"]/header/section[1]/div/div/gu-island/div/div/div[2]/a')
     #click google 
@@ -255,17 +271,8 @@ def theguardian(driver, file_path):
     #click google acc
     asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/div[1]/div[1]/div[2]/div/div/div[2]/div/div/div[1]/form/span/section/div/div/div/div/ul/li[1]/div')
     
-    #Водим пароль, если есть инпут под него
-    try:
-        input_password = driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')
-        input_password.send_keys('Default4444')
-        
-        #клик на next 
-        asyncClickToXpath5SecJS(driver, '//*[@id="passwordNext"]/div/button')
-    except:
-        print('Нет инпута для пароля')
-    #click continue
-    asyncClickToXpath5SecJS(driver, '//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button')
+    auth_google_current_window(driver, "Default4444")
+    
     #click confirm 
     asyncClickToXpath5SecJS(driver, '//*[@id="app"]/main/section/form/button')
     #click save and confirm 
@@ -285,6 +292,9 @@ def theguardian(driver, file_path):
         except:
             pass
         
+    input_email = driver.find_element(driver, '//*[@id="P0-2"]')
+    input_email.send_keys('takgunduz916@gmail.com')
+    
     update_json_value(file_path, 'theguardian', True)
     
     # РЕФАКТОРИНГ - может следует дописать код по подтверждении почты.

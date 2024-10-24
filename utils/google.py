@@ -63,7 +63,8 @@ def auth_google(driver, password, acc_path=None, label=None):
     print('windows', windows)
     time.sleep(1)
 
-    switch_to_window_url(driver, 'https://accounts.google.com/o/oauth2/')
+    switch_to_window_url(driver, 'https://accounts.google.com/')
+    
         
     time.sleep(1)
     asyncClickToXpath5SecJS(driver, "//*[@class='VV3oRb YZVTmd SmR8']")
